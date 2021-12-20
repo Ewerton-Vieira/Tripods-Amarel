@@ -17,14 +17,14 @@ from datetime import datetime
 MG_util = CMGDB_util.CMGDB_util()
 
 
-STEP = 10  # step is equal to STEP * 0.1s
+STEP = 9  # step is equal to STEP * 0.1s
 
 TM = TimeMap.TimeMap("pendulum_lc", STEP,
                      "examples/tripods/lc_roa.yaml")
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph
 # subdiv_max = 10  # maximal subdivision to compute Morse Graph
-subdiv_init = subdiv_min = subdiv_max = 2  # non adaptive proceedure
+subdiv_init = subdiv_min = subdiv_max = 14  # non adaptive proceedure
 
 
 x_min = -3.14159
@@ -63,15 +63,15 @@ print(g([0.6, 0.6]))
 lower_bounds = [x_min, y_min]
 upper_bounds = [x_max, y_max]
 
-phase_periodic = [False, False]
+phase_periodic = [True, False]
 
 # K = sampled_Lipschitz(lower_bounds, upper_bounds, N, g, base_name)
 K = [1.1, 1.1]
 
 
 def F(rect):
-    # return CMGDB.BoxMap(g, rect, padding=True)
-    return MG_util.F_K(rect, g, K)
+    return CMGDB.BoxMap(g, rect, padding=True)
+    # return MG_util.F_K(rect, g, K)
 
 
 morse_graph, map_graph = MG_util.run_CMGDB(
@@ -117,5 +117,5 @@ fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, TM1.pendulum_lc, fig=fig, ax=ax, xlim=[
                                       lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
 
-
+plt.savefig(base_name)
 plt.show()
