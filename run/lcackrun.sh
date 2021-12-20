@@ -19,4 +19,4 @@
 cd /scratch/er691/Tripods-Amarel/Car
 
 #  Run python script with input data
-srun python arckermann_lc_RoA.py
+srun python ackermann_lc_RoA_.py
