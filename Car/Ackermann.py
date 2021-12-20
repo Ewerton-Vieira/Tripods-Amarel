@@ -402,9 +402,9 @@ class Ackermann:
             plt.show()
 
 
-Ack = Ackermann()
-Ack.plot_graphs("/Users/ewerton/Amarel/scratch/er691/Car/ackermann_lc_low_100_500.out",
-                base_name='ackermann_60_1000_100_0_5', save=False)
+# Ack = Ackermann()
+# Ack.plot_graphs("/Users/ewerton/Amarel/scratch/er691/Car/ackermann_lc_low_100_500.out",
+#                 base_name='ackermann_60_1000_100_0_5', save=False)
 
 
 # plot_graphs("ackermann_3.out", base_name='ackermann_3', save=False)

@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 
 from datetime import datetime
 
-sb = 14
-time = 5  # step is equal to STEP * 0.1s
+sb = 18
+time = 10  # step is equal to STEP * 0.1s
 
 MG_util = CMGDB_util.CMGDB_util()
 
