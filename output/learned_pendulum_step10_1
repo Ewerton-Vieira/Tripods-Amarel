@@ -1,0 +1,4 @@
+digraph {
+0 [label="0", style=filled, fillcolor="#0000ff"];
+{rank=same; 0 }; 
+}
