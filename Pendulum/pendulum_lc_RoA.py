@@ -24,7 +24,7 @@ TM = TimeMap.TimeMap("pendulum_lc", STEP,
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph
 # subdiv_max = 10  # maximal subdivision to compute Morse Graph
-subdiv_init = subdiv_min = subdiv_max = 1  # non adaptive proceedure
+subdiv_init = subdiv_min = subdiv_max = 2  # non adaptive proceedure
 
 
 x_min = -3.14159
@@ -63,7 +63,7 @@ print(g([0.6, 0.6]))
 lower_bounds = [x_min, y_min]
 upper_bounds = [x_max, y_max]
 
-phase_periodic = [True, False]
+phase_periodic = [False, False]
 
 # K = sampled_Lipschitz(lower_bounds, upper_bounds, N, g, base_name)
 K = [1.1, 1.1]

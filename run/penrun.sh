@@ -16,7 +16,7 @@
 #module purge
 #module load python/3.5.2
 
-cd /scratch/er691/Tripods-Amare/Pendulum
+cd /scratch/er691/Tripods-Amarel/Pendulum
 
 #  Run python script with input data
 srun python pendulum_lc_RoA.py
