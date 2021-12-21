@@ -17,14 +17,15 @@ from datetime import datetime
 MG_util = CMGDB_util.CMGDB_util()
 
 
-STEP = 9  # step is equal to STEP * 0.1s
+sb = 18
+time = 1  # time is equal to 10s
 
-TM = TimeMap.TimeMap("pendulum_lc", STEP,
+TM = TimeMap.TimeMap("pendulum_lc", time,
                      "examples/tripods/lc_roa.yaml")
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph
 # subdiv_max = 10  # maximal subdivision to compute Morse Graph
-subdiv_init = subdiv_min = subdiv_max = 14  # non adaptive proceedure
+subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
 
 
 x_min = -3.14159
@@ -41,8 +42,8 @@ y_max = 6.28318
 
 
 # base name for the output files.
-base_name = "learned_pendulum_step" + \
-    str(STEP) + "_" + \
+base_name = "learned_pendulum_time" + \
+    str(time) + "_" + \
     str(subdiv_init)
 
 
@@ -70,8 +71,8 @@ K = [1.1, 1.1]
 
 
 def F(rect):
-    return CMGDB.BoxMap(g, rect, padding=True)
-    # return MG_util.F_K(rect, g, K)
+    # return CMGDB.BoxMap(g, rect, padding=True)
+    return MG_util.F_K(rect, g, K)
 
 
 morse_graph, map_graph = MG_util.run_CMGDB(
@@ -107,7 +108,7 @@ fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 # ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 
 # def phi(X):
-#     return Pd.G_traj(X, STEP//10)
+#     return Pd.G_traj(X, time//10)
 #
 #
 # fig, ax = dyn_tools.Plot_trajectories(
