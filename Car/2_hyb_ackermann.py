@@ -1,63 +1,108 @@
-# import Pendulum_lc as Pd
-
-import CMGDB_util
 import CMGDB
-import ROA
-import dyn_tools
+import libpyDirtMP
+
+import matplotlib.pyplot as plt
+import matplotlib
+import numpy as np
+import time
+import math
+import csv
+import os
+import itertools
+from datetime import datetime
+import torch
 
 import Ackermann
 
 import TimeMap
+import libpyDirtMP as prx
 
-import numpy as np
+import Lips
+import ROA
+import CMGDB_util
 
-import matplotlib.pyplot as plt
 
-from datetime import datetime
-
-sb = 18
-time = 10  # time in seconds
-
+# Functions defined by LQR or Motion planner
+Ack = Ackermann.Ackermann()
 MG_util = CMGDB_util.CMGDB_util()
 
+sb = 18
+time = 10000  # time in seconds
 
-TM = TimeMap.TimeMap("ackermann_lc", time,
-                     "examples/tripods/ackermann_lc.yaml")
-
+TM = TimeMap.TimeMap("ackermann_hyb", time,
+                     "examples/tripods/ackermann_2_roa.yaml")
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph
 # subdiv_max = 10  # maximal subdivision to compute Morse Graph
-
 subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
 
-N = 300  # total of points to plot graphs
+N = 300000  # total of points to plot graphs
 
 # POSITION_BOUNDS
-x_min = -10  # -2
-x_max = 10  #
-y_min = -10  # -1
-y_max = 10  # 2
+x_min = -300  # -2
+x_max = 300  #
+y_min = -300  # -1
+y_max = 300  # 2
+
+x_min = -10
+x_max = 10
+y_min = -10
+y_max = 10
+#
+# x_min = -1
+# x_max = 1
+# y_min = -1
+# y_max = 1
 
 VEL_BOUNDS = 1  # size of the box with the center at the goal (velocity)
 THETA_BOUND = 3.14159  # np.pi
 
 # base name for the output files.
-base_name = "learned_ack_time" + \
+base_name = "2_hyb_arckermann" + \
     str(time) + "_" + \
     str(subdiv_init)
 
 
 print(base_name)
 
-
-# ### Loading functions
+#
 
 
 def g(X):
-    return TM.ackermann_lc(X)
+    return TM.ackermann_hyb(X)
 
 
-print(g([-10, -10, 2.0944]))
+print(g([4, 4, 1.57]))
+
+first_goal = [0, 0, 1.57]
+intermediate_goal = [-4, -4, -1.57]
+
+print(g(intermediate_goal))
+
+
+def g_2(X):
+    Y = g(X)
+
+    # return Y
+    if np.linalg.norm(np.array(Y) - np.array(first_goal)) < 0.01:
+        return Y
+
+    else:
+        # intermediate goal
+        TM.ss.copy_point_from_vector(TM.goal_state, intermediate_goal)
+        TM.ctrl_1.set_goal(TM.goal_state)
+        TM.ctrl_2.set_goal(TM.goal_state)
+
+        Y_ = g(X)
+        # goal
+        TM.ss.copy_point_from_vector(TM.goal_state, first_goal)
+        TM.ctrl_1.set_goal(TM.goal_state)
+        TM.ctrl_2.set_goal(TM.goal_state)
+
+        return g(Y_)
+
+
+print(g_2([-2, -5, 0]))
 
 
 # Graphs
@@ -65,8 +110,7 @@ x_cube = MG_util.sample_points([x_min, y_min, -THETA_BOUND],
                                [x_max, y_max, THETA_BOUND], N)
 
 
-Ack = Ackermann.Ackermann(ctrl_type="learned")
-Ack.plot_graphs(g, x_cube, base_name, save=True)
+Ack.plot_graphs(g_2, x_cube, base_name, save=True)
 
 
 # Define the parameters for CMGDB
@@ -76,6 +120,7 @@ upper_bounds = [x_max, y_max, THETA_BOUND]
 
 phase_periodic = [False, False, True]
 
+# K = sampled_Lipschitz(lower_bounds, upper_bounds, N, g, base_name)
 K = [1.05, 1.05, 1.05]
 
 
