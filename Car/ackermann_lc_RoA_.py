@@ -65,8 +65,8 @@ x_cube = MG_util.sample_points([x_min, y_min, -THETA_BOUND],
                                [x_max, y_max, THETA_BOUND], N)
 
 
-Ack = Ackermann.Ackermann(ctrl_type="learned")
-Ack.plot_graphs(g, x_cube, base_name, save=True)
+# Ack = Ackermann.Ackermann(ctrl_type="learned")
+# Ack.plot_graphs(g, x_cube, base_name, save=True)
 
 
 # Define the parameters for CMGDB
@@ -78,43 +78,50 @@ phase_periodic = [False, False, True]
 
 K = [1.05, 1.05, 1.05]
 
+#
+# def F(rect):
+#     return MG_util.F_K(rect, g, K)
+#
+#
+# morse_graph, map_graph = MG_util.run_CMGDB(
+#     subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
+#
+# startTime = datetime.now()
+#
+# DG = ROA.Domain_Graph(map_graph, morse_graph)
+#
+# print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
+#
+# retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
+#
+# DG.save_file(retract_tiles, retract_indices, base_name)
+#
+# # plot
+# fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 
-def F(rect):
-    return MG_util.F_K(rect, g, K)
+# plt.savefig(base_name)
+# plt.show()
 
 
-morse_graph, map_graph = MG_util.run_CMGDB(
-    subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
-
-startTime = datetime.now()
-
-DG = ROA.Domain_Graph(map_graph, morse_graph)
-
-print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
-
-retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
-
-DG.save_file(retract_tiles, retract_indices, base_name)
-
-# plot
-fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
+fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
+                             from_file=base_name, from_file_basic=True)
 
 plt.savefig(base_name)
 plt.show()
 
-
-# plot
-proj_dims = [0, 1]
-name_plot = base_name + "ROA" + str(proj_dims)
-DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
-                       retract_indices, proj_dims=proj_dims, name_plot=name_plot)
-
-proj_dims = [1, 2]
-name_plot = base_name + "ROA" + str(proj_dims)
-DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
-                       retract_indices, proj_dims=proj_dims, name_plot=name_plot)
-
-proj_dims = [0, 2]
-name_plot = base_name + "ROA" + str(proj_dims)
-DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
-                       retract_indices, proj_dims=proj_dims, name_plot=name_plot)
+#
+# # plot
+# proj_dims = [0, 1]
+# name_plot = base_name + "ROA" + str(proj_dims)
+# DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
+#                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)
+#
+# proj_dims = [1, 2]
+# name_plot = base_name + "ROA" + str(proj_dims)
+# DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
+#                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)
+#
+# proj_dims = [0, 2]
+# name_plot = base_name + "ROA" + str(proj_dims)
+# DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
+#                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)

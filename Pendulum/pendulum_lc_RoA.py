@@ -17,8 +17,8 @@ from datetime import datetime
 MG_util = CMGDB_util.CMGDB_util()
 
 
-sb = 18
-time = 1  # time is equal to 10s
+sb = 14
+time = 30  # time is equal to 10s
 
 TM = TimeMap.TimeMap("pendulum_lc", time,
                      "examples/tripods/lc_roa.yaml")
@@ -70,50 +70,35 @@ phase_periodic = [True, False]
 K = [1.1, 1.1]
 
 
-def F(rect):
-    # return CMGDB.BoxMap(g, rect, padding=True)
-    return MG_util.F_K(rect, g, K)
+# def F(rect):
+#     # return CMGDB.BoxMap(g, rect, padding=True)
+#     return MG_util.F_K(rect, g, K)
+#
+#
+# morse_graph, map_graph = MG_util.run_CMGDB(
+#     subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
+#
+# startTime = datetime.now()
+#
+# DG = ROA.Domain_Graph(map_graph, morse_graph)
+#
+# print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
+#
+# retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
+#
+# DG.save_file(retract_tiles, retract_indices, base_name)
 
 
-morse_graph, map_graph = MG_util.run_CMGDB(
-    subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
+# fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 
-startTime = datetime.now()
+fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
+                             from_file=base_name, from_file_basic=True)
 
-DG = ROA.Domain_Graph(map_graph, morse_graph)
 
-print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
-
-retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
-
-DG.save_file(retract_tiles, retract_indices, base_name)
+# dynamics
 
 TM1 = TimeMap.TimeMap("pendulum_lc", 0.01,
                       "examples/tripods/lc_roa.yaml")
-
-
-def d_dt(X, t):
-    X_f = TM1.pendulum_lc(X)
-    return [X_f[0] - X[0], X_f[1] - X[1]]
-
-
-fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
-#
-# fig, ax = dyn_tools.Plot_vectors(lower_bounds, upper_bounds, d_dt, fig=fig, ax=ax, normalize=False)
-
-
-# fig, ax = dyn_tools.Plot_vectors(lower_bounds, upper_bounds, d_dt, normalize=False)
-
-
-# ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
-
-# def phi(X):
-#     return Pd.G_traj(X, time//10)
-#
-#
-# fig, ax = dyn_tools.Plot_trajectories(
-#     lower_bounds, upper_bounds, phi, fig=None, ax=None, normalize=False)
-
 
 fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, TM1.pendulum_lc, fig=fig, ax=ax, xlim=[
                                       lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
