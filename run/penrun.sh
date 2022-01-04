@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name=Pend_MG # Job name
-#SBATCH --output=output_%N_%j.out     # STDOUT output file
-#SBATCH --error=output_%N_%j.err      # STDERR output file (optional)
+#SBATCH --output=Pend_MG%N_%j.out     # STDOUT output file
+#SBATCH --error=Pend_MG%N_%j.err      # STDERR output file (optional)
 #SBATCH --partition=main              # Partition (job queue)
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks=1                    # Total number of tasks across all nodes

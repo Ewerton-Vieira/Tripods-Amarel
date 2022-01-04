@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name=Lc_ack_MG # Job name
-#SBATCH --output=Lc_ack_output_%N_%j.out     # STDOUT output file
-#SBATCH --error=Lc_ack_output_%N_%j.err      # STDERR output file (optional)
+#SBATCH --output=Lc_ack%N_%j.out     # STDOUT output file
+#SBATCH --error=Lc_ack%N_%j.err      # STDERR output file (optional)
 #SBATCH --partition=main              # Partition (job queue)
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks=1                    # Total number of tasks across all nodes
