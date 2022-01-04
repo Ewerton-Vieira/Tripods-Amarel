@@ -61,6 +61,8 @@ upper_bounds = [x_max, y_max]
 
 # load map
 
+grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
+
 startTime = datetime.now()
 
 file_name = base_name + ".csv"
