@@ -5,8 +5,8 @@ import Grid
 import TimeMap
 
 
-sb = 12
-time = 5  # time is equal to 10s
+sb = 20
+time = 1  # time is equal to 10s
 
 TM = TimeMap.TimeMap("pendulum_lc", time,
                      "examples/tripods/lc_roa.yaml")
