@@ -74,7 +74,7 @@ grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
 
 startTime = datetime.now()
 
-file_name = base_name + ".csv"
+file_name = base_name + "_map_grid.csv"
 map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
 
 print(f"Time to load map = {datetime.now() - startTime}")
