@@ -22,8 +22,8 @@ time = 10  # time in seconds
 MG_util = CMGDB_util.CMGDB_util()
 
 
-TM = TimeMap.TimeMap("ackermann_lc", time,
-                     "examples/tripods/ackermann_lc.yaml")
+# TM = TimeMap.TimeMap("ackermann_lc", time,
+#                      "examples/tripods/ackermann_lc.yaml")
 
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph

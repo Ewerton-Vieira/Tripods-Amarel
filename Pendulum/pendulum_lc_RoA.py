@@ -21,8 +21,8 @@ MG_util = CMGDB_util.CMGDB_util()
 sb = 12
 time = 5  # time is equal to 10s
 
-TM = TimeMap.TimeMap("pendulum_lc", time,
-                     "examples/tripods/lc_roa.yaml")
+# TM = TimeMap.TimeMap("pendulum_lc", time,
+#                      "examples/tripods/lc_roa.yaml")
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph
 # subdiv_max = 10  # maximal subdivision to compute Morse Graph
@@ -68,6 +68,10 @@ startTime = datetime.now()
 
 file_name = base_name + "_map_grid.csv"
 map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
+
+count = 0
+for a in map:
+    count += int(sys.getsizeof(a))
 
 print(f"Time to load map = {datetime.now() - startTime}")
 

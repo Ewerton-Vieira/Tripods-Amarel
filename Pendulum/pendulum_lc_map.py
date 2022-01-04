@@ -23,7 +23,7 @@ y_min = -6.28318
 y_max = 6.28318
 
 # base name for the output files.
-base_name = f"learned_pendulum_time_{time}_{subdiv_init}_map_grid"
+base_name = f"learned_pendulum_time{time}_{subdiv_init}_map_grid"
 
 
 print(base_name)
