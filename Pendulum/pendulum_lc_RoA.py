@@ -5,6 +5,7 @@ import CMGDB
 import ROA
 import dyn_tools
 import Grid
+import sys
 
 import TimeMap
 
@@ -72,6 +73,7 @@ map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
 count = 0
 for a in map:
     count += int(sys.getsizeof(a))
+print(f"memory size for map {count}")
 
 print(f"Time to load map = {datetime.now() - startTime}")
 

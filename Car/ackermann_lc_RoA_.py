@@ -96,29 +96,29 @@ phase_periodic = [False, False, True]
 
 K = 1.05
 
-#
-# def F(rect):
-#     return MG_util.F_K(rect, g, K)
-#
-#
-# morse_graph, map_graph = MG_util.run_CMGDB(
-#     subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
-#
-# startTime = datetime.now()
-#
-# DG = ROA.Domain_Graph(map_graph, morse_graph)
-#
-# print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
-#
-# retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
-#
-# DG.save_file(retract_tiles, retract_indices, base_name)
+
+def F(rect):
+    return MG_util.BoxMapK(rect, g, K)
+
+
+morse_graph, map_graph = MG_util.run_CMGDB(
+    subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
+
+startTime = datetime.now()
+
+DG = ROA.Domain_Graph(map_graph, morse_graph)
+
+print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
+
+retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
+
+DG.save_file(retract_tiles, retract_indices, base_name)
 #
 # # plot
-# fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
+fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 
-# plt.savefig(base_name)
-# plt.show()
+plt.savefig(base_name)
+plt.show()
 
 
 # fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
