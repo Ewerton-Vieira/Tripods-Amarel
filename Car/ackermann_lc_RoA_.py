@@ -4,6 +4,7 @@ import CMGDB_util
 import CMGDB
 import ROA
 import dyn_tools
+import Grid
 
 import Ackermann
 
@@ -15,7 +16,7 @@ import matplotlib.pyplot as plt
 
 from datetime import datetime
 
-sb = 18
+sb = 20
 time = 10  # time in seconds
 
 MG_util = CMGDB_util.CMGDB_util()
@@ -53,16 +54,9 @@ print(base_name)
 # ### Loading functions
 
 
-def g(X):
-    return TM.ackermann_lc(X)
-
-
-print(g([-10, -10, 2.0944]))
-
-
 # Graphs
-x_cube = MG_util.sample_points([x_min, y_min, -THETA_BOUND],
-                               [x_max, y_max, THETA_BOUND], N)
+# x_cube = MG_util.sample_points([x_min, y_min, -THETA_BOUND],
+#                                [x_max, y_max, THETA_BOUND], N)
 
 
 # Ack = Ackermann.Ackermann(ctrl_type="learned")
@@ -74,9 +68,31 @@ lower_bounds = [x_min, y_min, -THETA_BOUND]
 upper_bounds = [x_max, y_max, THETA_BOUND]
 
 
+# load map
+
+startTime = datetime.now()
+
+file_name = base_name + ".csv"
+map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
+
+print(f"Time to load map = {datetime.now() - startTime}")
+
+
+def g_on_grid(x):
+    return grid.image_of_vertex_from_loaded_map(map, x, lower_bounds, upper_bounds, sb)
+
+
+# test
+vertex = [(upper_bounds[a] - lower_bounds[a])/(2**(1 + (a & 1))) for a in range(len(upper_bounds))]
+
+print("region, vertex coordinates", grid.vertex2grid_vertex(
+    vertex, lower_bounds, upper_bounds, sb))
+print(g_on_grid(vertex))
+
+
 phase_periodic = [False, False, True]
 
-K = [1.05, 1.05, 1.05]
+K = 1.05
 
 #
 # def F(rect):
@@ -103,11 +119,11 @@ K = [1.05, 1.05, 1.05]
 # plt.show()
 
 
-fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
-                             from_file=base_name, from_file_basic=True)
-
-plt.savefig(base_name)
-plt.show()
+# fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
+#                              from_file=base_name, from_file_basic=True)
+#
+# plt.savefig(base_name)
+# plt.show()
 
 #
 # # plot

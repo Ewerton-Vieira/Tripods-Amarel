@@ -53,21 +53,21 @@ grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
 startTime = datetime.now()
 grid.write_map_grid(g, lower_bounds, upper_bounds, sb, base_name=base_name)
 print(f"Time to save map_grid = {datetime.now() - startTime}")
-
-# load map
-file_name = base_name + ".csv"
-map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
-
-
-def g_on_grid(x):
-    return grid.image_of_vertex_from_loaded_map(map, x, lower_bounds, upper_bounds, sb)
-
-
-# test
-vertex = [(upper_bounds[a] - lower_bounds[a])/(2**(1 + (a & 1))) for a in range(len(upper_bounds))]
-
-print("region, vertex coordinates", grid.vertex2grid_vertex(
-    vertex, lower_bounds, upper_bounds, sb))
-print("g image ", g(vertex))
-print(g(vertex))
-print(g_on_grid(vertex))
+#
+# # load map
+# file_name = base_name + ".csv"
+# map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
+#
+#
+# def g_on_grid(x):
+#     return grid.image_of_vertex_from_loaded_map(map, x, lower_bounds, upper_bounds, sb)
+#
+#
+# # test
+# vertex = [(upper_bounds[a] - lower_bounds[a])/(2**(1 + (a & 1))) for a in range(len(upper_bounds))]
+#
+# print("region, vertex coordinates", grid.vertex2grid_vertex(
+#     vertex, lower_bounds, upper_bounds, sb))
+# print("g image ", g(vertex))
+# print(g(vertex))
+# print(g_on_grid(vertex))
