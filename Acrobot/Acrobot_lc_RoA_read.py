@@ -68,57 +68,11 @@ lower_bounds = [x_min, y_min, -THETA_BOUND]
 upper_bounds = [x_max, y_max, THETA_BOUND]
 
 
-# load map
-
-grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
-
-startTime = datetime.now()
-
-file_name = base_name + "_map_grid.csv"
-map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
-
-print(f"Time to load map = {datetime.now() - startTime}")
-
-
-def g_on_grid(x):
-    return grid.image_of_vertex_from_loaded_map(map, x, lower_bounds, upper_bounds, sb)
-
-
-# test
-vertex = [(upper_bounds[a] - lower_bounds[a])/(2**(1 + (a & 1))) for a in range(len(upper_bounds))]
-
-print("region, vertex coordinates", grid.vertex2grid_vertex(
-    vertex, lower_bounds, upper_bounds, sb))
-print(g_on_grid(vertex))
-
-
-phase_periodic = [False, False, True]
-
-K = 1.05
-
-
-def F(rect):
-    return MG_util.BoxMapK(rect, g, K)
-
-
-morse_graph, map_graph = MG_util.run_CMGDB(
-    subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
-
-startTime = datetime.now()
-
-DG = ROA.Domain_Graph(map_graph, morse_graph)
-
-print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
-
-retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
-
-DG.save_file(retract_tiles, retract_indices, base_name)
-#
 # # plot
-fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
-
-plt.savefig(base_name)
-plt.show()
+# fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
+#
+# plt.savefig(base_name)
+# plt.show()
 
 
 # fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
@@ -127,13 +81,14 @@ plt.show()
 # plt.savefig(base_name)
 # plt.show()
 
-#
-# # plot
-# proj_dims = [0, 1]
-# name_plot = base_name + "ROA" + str(proj_dims)
-# DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
-#                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)
-#
+
+# plot
+section = ([2], (0, 0, 0))
+name_plot = base_name + "ROA" + str(section)
+fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
+                             from_file=base_name,  section=section, name_plot=name_plot)
+plt.show()
+
 # proj_dims = [1, 2]
 # name_plot = base_name + "ROA" + str(proj_dims)
 # DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,

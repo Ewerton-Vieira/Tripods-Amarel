@@ -19,23 +19,18 @@ TM = TimeMap.TimeMap("ackermann_lc", time,
 
 subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
 
-N = 300  # total of points to plot graphs
-
 # POSITION_BOUNDS
-x_min = -10  # -2
-x_max = 10  #
-y_min = -10  # -1
-y_max = 10  # 2
+EPSILON_THETAS = 3.14159  # size of the box with the center at the goal (thetas)
+EPSILON_DOTS = 6  # 6  # size of the box with the center at the goal (thetas_dot)
 
-VEL_BOUNDS = 1  # size of the box with the center at the goal (velocity)
-THETA_BOUND = 3.14159  # np.pi
+tau = 20  # bounds on torque
+
 
 lower_bounds = [x_min, y_min, -THETA_BOUND]
 upper_bounds = [x_max, y_max, THETA_BOUND]
 
 # base name for the output files.
-# base name for the output files.
-base_name = f"learned_ack_time{time}_{subdiv_init}_map_grid"
+base_name = "Acrobot_step" + str(STEP) + "_torque" + str(tau) + "_" + str(subdiv_init)
 
 print(base_name)
 
