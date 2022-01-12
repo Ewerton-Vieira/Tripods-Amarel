@@ -49,12 +49,11 @@ lower_bounds = [x_min, y_min]
 upper_bounds = [x_max, y_max]
 
 
-# fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds, selection=[
-#                              4, 0, 7, 1, 5], from_file=base_name)
+fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 
 
-fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds,
-                             from_file=base_name, from_file_basic=True)
+# fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds,
+#                              from_file=base_name, from_file_basic=True)
 
 
 # dynamics
