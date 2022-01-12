@@ -16,7 +16,7 @@ import Ackermann
 import TimeMap
 
 import Lips
-import ROA
+import RoA
 import CMGDB_util
 
 
@@ -100,7 +100,7 @@ K = [1.05, 1.05, 1.05]
 #
 # startTime = datetime.now()
 #
-# DG = ROA.Domain_Graph(map_graph, morse_graph)
+# DG = RoA.Domain_Graph(map_graph, morse_graph)
 #
 # print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
 #
@@ -111,22 +111,22 @@ K = [1.05, 1.05, 1.05]
 
 # DG.PlotMorseTiles(from_file=base_name)
 
-# ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name, plot_point=True)
+# RoA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name, plot_point=True)
 
-ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name, section=([2], (0, 0, 1.57)))
+RoA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name, section=([2], (0, 0, 1.57)))
 plt.show()
 
 # proj_dims = [0, 1]
-# name_plot = base_name + "ROA" + str(proj_dims)
+# name_plot = base_name + "RoA" + str(proj_dims)
 # DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
 #                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)
 #
 # proj_dims = [1, 2]
-# name_plot = base_name + "ROA" + str(proj_dims)
+# name_plot = base_name + "RoA" + str(proj_dims)
 # DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
 #                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)
 #
 # proj_dims = [0, 2]
-# name_plot = base_name + "ROA" + str(proj_dims)
+# name_plot = base_name + "RoA" + str(proj_dims)
 # DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
 #                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)

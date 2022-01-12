@@ -18,7 +18,7 @@ import TimeMap
 import libpyDirtMP as prx
 
 import Lips
-import ROA
+import RoA
 import CMGDB_util
 
 
@@ -133,7 +133,7 @@ morse_graph, map_graph = MG_util.run_CMGDB(
 
 startTime = datetime.now()
 
-DG = ROA.Domain_Graph(map_graph, morse_graph)
+DG = RoA.Domain_Graph(map_graph, morse_graph)
 
 print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
 
@@ -142,7 +142,7 @@ retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
 DG.save_file(retract_tiles, retract_indices, base_name)
 
 # plot
-fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
+fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 
 plt.savefig(base_name)
 plt.show()
@@ -150,16 +150,16 @@ plt.show()
 
 # plot
 proj_dims = [0, 1]
-name_plot = base_name + "ROA" + str(proj_dims)
+name_plot = base_name + "RoA" + str(proj_dims)
 DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)
 
 proj_dims = [1, 2]
-name_plot = base_name + "ROA" + str(proj_dims)
+name_plot = base_name + "RoA" + str(proj_dims)
 DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)
 
 proj_dims = [0, 2]
-name_plot = base_name + "ROA" + str(proj_dims)
+name_plot = base_name + "RoA" + str(proj_dims)
 DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)

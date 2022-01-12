@@ -2,7 +2,7 @@
 
 import CMGDB_util
 import CMGDB
-import ROA
+import RoA
 import dyn_tools
 import Grid
 
@@ -69,13 +69,13 @@ upper_bounds = [x_max, y_max, THETA_BOUND]
 
 
 # # plot
-# fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
+# fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
 #
 # plt.savefig(base_name)
 # plt.show()
 
 
-# fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
+# fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds,
 #                              from_file=base_name, from_file_basic=True)
 #
 # plt.savefig(base_name)
@@ -84,17 +84,17 @@ upper_bounds = [x_max, y_max, THETA_BOUND]
 
 # plot
 section = ([2], (0, 0, 0))
-name_plot = base_name + "ROA" + str(section)
-fig, ax = ROA.PlotMorseTiles(lower_bounds, upper_bounds,
+name_plot = base_name + "RoA" + str(section)
+fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds,
                              from_file=base_name,  section=section, name_plot=name_plot)
 plt.show()
 
 # proj_dims = [1, 2]
-# name_plot = base_name + "ROA" + str(proj_dims)
+# name_plot = base_name + "RoA" + str(proj_dims)
 # DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
 #                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)
 #
 # proj_dims = [0, 2]
-# name_plot = base_name + "ROA" + str(proj_dims)
+# name_plot = base_name + "RoA" + str(proj_dims)
 # DG.PlotOrderRetraction(morse_graph, map_graph, retract_tiles,
 #                        retract_indices, proj_dims=proj_dims, name_plot=name_plot)

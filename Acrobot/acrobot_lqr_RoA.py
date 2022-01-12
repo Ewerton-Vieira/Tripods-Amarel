@@ -2,7 +2,7 @@
 
 import CMGDB_util
 import CMGDB
-import ROA
+import RoA
 import dyn_tools
 import Grid
 
@@ -51,7 +51,8 @@ def g_on_grid(x):
 
 phase_periodic = [True, True, False, False]
 
-K = 1.05
+K = 2
+K = [K, K, K]
 
 
 def F(rect):
@@ -65,10 +66,8 @@ morse_graph, map_graph = MG_util.run_CMGDB(
 
 startTime = datetime.now()
 
-DG = ROA.Domain_Graph(map_graph, morse_graph)
+roa = RoA.RoA(map_graph, morse_graph)
 
-print(f"Time to build the ancestors_graph time = {datetime.now() - startTime}")
+print(f"Time to build the regions of attraction = {datetime.now() - startTime}")
 
-retract_tiles, retract_indices, morse_nodes_map = DG.morse_retract()
-
-DG.save_file(retract_tiles, retract_indices, base_name)
+roa.save_file(base_name)
