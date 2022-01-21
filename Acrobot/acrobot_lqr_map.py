@@ -6,7 +6,7 @@ import Grid
 from Acrobot import *
 
 
-sb = 30
+sb = 20
 time = 5  # time in seconds
 STEP = 500
 

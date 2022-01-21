@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 
-sb = 30
+sb = 20
 time = 5  # time in seconds
 STEP = 500
 
@@ -56,9 +56,9 @@ K = [K, K, K]
 
 
 def F(rect):
-    # return CMGDB.BoxMap(g_on_grid, rect, padding=True)
+    return CMGDB.BoxMap(g_on_grid, rect, padding=True)
     # return MG_util.F_K(g_on_grid, rect, K)
-    return MG_util.BoxMapK(g_on_grid, rect, K)
+    # return MG_util.BoxMapK(g_on_grid, rect, K)
 
 
 morse_graph, map_graph = MG_util.run_CMGDB(
