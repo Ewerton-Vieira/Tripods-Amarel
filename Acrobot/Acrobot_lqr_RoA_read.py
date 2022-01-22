@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 from datetime import datetime
 
-sb = 30
+sb = 20
 time = 5  # time in seconds
 STEP = 500
 
@@ -47,10 +47,10 @@ print(base_name)
 
 
 # plot
-section = ([2], (0, 0, 0))
+section = ([2, 3], (0, 0, 0, 0))
 name_plot = base_name + "RoA" + str(section)
-fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds,
-                             from_file=base_name,  section=section, name_plot=name_plot)
+fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
+                        from_file=base_name,  section=section, name_plot=name_plot)
 plt.show()
 
 # proj_dims = [1, 2]

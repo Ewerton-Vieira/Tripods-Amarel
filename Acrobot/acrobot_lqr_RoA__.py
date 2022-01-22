@@ -1,3 +1,5 @@
+# import Pendulum_lc as Pd
+
 import CMGDB_util
 import CMGDB
 import RoA
@@ -11,7 +13,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 
-sb = 25
+sb = 20
 time = 5  # time in seconds
 STEP = 500
 
@@ -35,8 +37,16 @@ base_name = "Acrobot_step" + str(STEP) + "_torque" + str(tau) + "_" + str(subdiv
 print(base_name)
 
 
-def g(X):
-    return G(X, tau, STEP)
+# load map
+
+grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
+
+file_name = base_name + "_map_grid.csv"
+map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
+
+
+def g_on_grid(x):
+    return grid.image_of_vertex_from_loaded_map(map, x, lower_bounds, upper_bounds, sb)
 
 
 phase_periodic = [True, True, False, False]
@@ -46,7 +56,7 @@ K = [K, K, K]
 
 
 def F(rect):
-    return CMGDB.BoxMap(g, rect, padding=True)
+    return CMGDB.BoxMap(g_on_grid, rect, padding=True)
     # return MG_util.F_K(g_on_grid, rect, K)
     # return MG_util.BoxMapK(g_on_grid, rect, K)
 
