@@ -277,7 +277,7 @@ class Ackermann:
         # plt.show()
         plt.savefig(name_graph)
 
-    def plot_graphs(self, f, x_cube=None, base_name="", save=False):
+    def plot_graphs(self, f, x_cube=None, base_name="", save=False, goal=[0, 0, 1.57]):
         """Plot graphs for function with success and fail
         f = function, x_cube = point in a cube
         base_name = base name for the files
@@ -310,7 +310,7 @@ class Ackermann:
 
         else:
             for x_ in x_cube:
-                y_ = self.G_check(f, x_)
+                y_ = self.G_check(f, x_, goal)
                 # print(x_, y_)
                 # print(x_, f(x_))
                 if y_[1]:
