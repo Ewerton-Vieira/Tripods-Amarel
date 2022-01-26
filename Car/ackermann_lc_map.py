@@ -7,7 +7,7 @@ import Ackermann
 import TimeMap
 
 
-sb = 30
+sb = 20
 time = 1  # time in seconds
 
 TM = TimeMap.TimeMap("ackermann_lc", time,

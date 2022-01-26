@@ -2,7 +2,7 @@
 
 import CMGDB_util
 import CMGDB
-import RoA
+import RoA_old
 import dyn_tools
 import Grid
 
@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 
 from datetime import datetime
 
-sb = 20
-time = 10  # time in seconds
+sb = 14
+time = 5  # time in seconds
 
 MG_util = CMGDB_util.CMGDB_util()
 
@@ -83,10 +83,21 @@ upper_bounds = [x_max, y_max, THETA_BOUND]
 
 
 # plot
-section = ([2], (0, 0, 0))
-name_plot = base_name + "RoA" + str(section)
-fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds,
-                             from_file=base_name,  section=section, name_plot=name_plot)
+
+# old RoA_old
+# section = ([2], (0, 0, 0))
+# name_plot = base_name + "RoA" + str(section)
+# fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
+#                         from_file=base_name,  section=section, name_plot=name_plot)
+fig, ax = RoA_old.PlotMorseTiles(lower_bounds, upper_bounds,
+                                 from_file=base_name, from_file_basic=True)  # , plot_point=True)
+
+
+# new RoA
+# name_plot = base_name + "RoA"
+# fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
+#                         from_file=base_name, name_plot=name_plot, plot_point=True)
+
 plt.show()
 
 # proj_dims = [1, 2]

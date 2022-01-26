@@ -153,7 +153,7 @@ class Ackermann:
 
     def G_check(self, f,  X, goal=[0, 0, 1.57]):
         Y = f(X)
-        if np.linalg.norm(np.array(Y) - np.array(goal)) > 0.01:
+        if np.linalg.norm(np.array(Y) - np.array(goal)) > 0.1:
             return [Y, False]
         else:
             return [Y, True]
