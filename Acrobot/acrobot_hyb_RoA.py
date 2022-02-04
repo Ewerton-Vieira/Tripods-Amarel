@@ -14,7 +14,7 @@ from datetime import datetime
 
 
 sb = 20
-time = 10  # time in seconds
+time = 20  # time in seconds
 
 MG_util = CMGDB_util.CMGDB_util()
 
@@ -31,17 +31,21 @@ lower_bounds = [-EPSILON_THETAS + pi, -EPSILON_THETAS, -EPSILON_DOTS, -EPSILON_D
 upper_bounds = [EPSILON_THETAS + pi, EPSILON_THETAS, EPSILON_DOTS, EPSILON_DOTS]
 
 # base name for the output files.
-base_name = "Acrobot_lc_step" + str(time) + "_torque" + str(tau) + "_" + str(subdiv_init)
+base_name = "Acrobot_hyb_time_" + str(time) + "_torque" + str(tau) + "_" + str(subdiv_init)
 
 print(base_name)
 
+time_h = int(time//2)
 
-TM = TimeMap.TimeMap("acrobot_lc", time,
-                     "examples/tripods/acrobot_lc.yaml")
+TM_lqr = TimeMap.TimeMap("acrobot_lqr", time_h, "examples/tripods/acrobot_roa.yaml")
+TM_lc = TimeMap.TimeMap("acrobot_lc", time_h, "examples/tripods/acrobot_lc.yaml")
+line = ""
 
 
 def g(X):
-    return TM.acrobot_lc(X)
+    output_of_lc = TM_lc.acrobot_lc(X)
+    # print(output_of_lc)
+    return TM_lqr.acrobot_lqr(output_of_lc)
 
 
 phase_periodic = [True, True, False, False]
