@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name=Hyb_ack_MG # Job name
-#SBATCH --output=Hyb_ack%N_%j.out     # STDOUT output file
-#SBATCH --error=Hyb_ack%N_%j.err      # STDERR output file (optional)
+#SBATCH --output=Hyb_ack%j.out     # STDOUT output file
+#SBATCH --error=Hyb_ack%j.err      # STDERR output file (optional)
 #SBATCH --partition=main              # Partition (job queue)
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks=1                    # Total number of tasks across all nodes

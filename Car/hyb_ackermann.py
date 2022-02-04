@@ -55,6 +55,8 @@ if goal:
         str(time) + "_" + \
         str(subdiv_init) + "interm"
 
+    TM.ss.copy_point_from_vector(TM.goal_state, goal)
+
 else:
     base_name = "hyb_arckermann" + \
         str(time) + "_" + \
@@ -62,10 +64,6 @@ else:
 
 
 print(base_name)
-
-#
-
-TM.ss.copy_point_from_vector(TM.goal_state, goal)
 
 
 def g(X):

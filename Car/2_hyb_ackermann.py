@@ -26,7 +26,7 @@ import CMGDB_util
 Ack = Ackermann.Ackermann()
 MG_util = CMGDB_util.CMGDB_util()
 
-sb = 20
+sb = 16
 time = 10000  # time in seconds
 
 TM = TimeMap.TimeMap("ackermann_hyb", time)
@@ -35,7 +35,7 @@ TM = TimeMap.TimeMap("ackermann_hyb", time)
 # subdiv_max = 10  # maximal subdivision to compute Morse Graph
 subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
 
-N = 50000000  # total of points to plot graphs
+N = 1000000  # total of points to plot graphs
 
 # POSITION_BOUNDS
 x_min = -10

@@ -18,7 +18,7 @@ from datetime import datetime
 MG_util = CMGDB_util.CMGDB_util()
 
 
-sb = 16
+sb = 20
 time = 1  # time is equal to 10s
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph
@@ -34,7 +34,7 @@ y_max = 6.28318
 
 
 # base name for the output files.
-base_name = "pendulum_lc_time" + \
+base_name = "learned_pendulum_time" + \
     str(time) + "_" + \
     str(subdiv_init)
 
@@ -48,44 +48,36 @@ upper_bounds = [x_max, y_max]
 
 
 # load map
-# set the time step
-TM = TimeMap.TimeMap("pendulum_lc", time,
-                     "examples/tripods/lc_roa.yaml")
 
-# define the lqr time map for the pendulum
+grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
+
+file_name = base_name + "_map_grid.csv"
+map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
 
 
-def g(X):
-    Y = TM.pendulum_lc(X)
-    return Y
+def g_on_grid(x):
+    return grid.image_of_vertex_from_loaded_map(map, x, lower_bounds, upper_bounds, sb)
 
 
 phase_periodic = [True, False]
 
 
+K = 2
+
+
 def F(rect):
-    return CMGDB.BoxMap(g, rect, padding=True)
+    # return CMGDB.BoxMap(g_on_grid, rect, padding=True)
     # return MG_util.F_K(g_on_grid, rect, K)
-    # return MG_util.BoxMapK(g_on_grid, rect, K)
+    return MG_util.BoxMapK(g_on_grid, rect, K)
 
 
 morse_graph, map_graph = MG_util.run_CMGDB(
     subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
-
-# CMGDB.PlotMorseSets(morse_graph)
 
 startTime = datetime.now()
 
 roa = RoA.RoA(map_graph, morse_graph)
 
 print(f"Time to build the regions of attraction = {datetime.now() - startTime}")
-
-
-fig, ax = roa.PlotTiles()
-
-# RoA.PlotTiles(lower_bounds, upper_bounds,
-#               from_file=base_name, from_file_basic=True)
-
-plt.show()
 
 roa.save_file(base_name)

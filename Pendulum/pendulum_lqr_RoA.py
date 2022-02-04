@@ -18,7 +18,7 @@ from datetime import datetime
 MG_util = CMGDB_util.CMGDB_util()
 
 
-sb = 16
+sb = 12
 time = 1  # time is equal to 10s
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph
@@ -34,7 +34,7 @@ y_max = 6.28318
 
 
 # base name for the output files.
-base_name = "pendulum_lc_time" + \
+base_name = "pendulum_lqr_time" + \
     str(time) + "_" + \
     str(subdiv_init)
 
@@ -56,7 +56,7 @@ TM = TimeMap.TimeMap("pendulum_lc", time,
 
 
 def g(X):
-    Y = TM.pendulum_lc(X)
+    Y = TM.pendulum_lqr(X)
     return Y
 
 
