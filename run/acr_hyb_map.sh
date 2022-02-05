@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=Acr_hyb_test # Job name
-#SBATCH --output=Acr_hyb_test%j.out     # STDOUT output file
-#SBATCH --error=Acr_hyb_test%j.err      # STDERR output file (optional)
+#SBATCH --job-name=Acr_h_map # Job name
+#SBATCH --output=Acr_hyb_map%j.out     # STDOUT output file
+#SBATCH --error=Acr_hyb_map%j.err      # STDERR output file (optional)
 #SBATCH --partition=main              # Partition (job queue)
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks=1                    # Total number of tasks across all nodes
-#SBATCH --cpus-per-task=8             # Number of CPUs (cores) per task (>1 if multithread tasks)
-#SBATCH --mem=48000                    # Real memory (RAM) required (MB)
+#SBATCH --cpus-per-task=16             # Number of CPUs (cores) per task (>1 if multithread tasks)
+#SBATCH --mem=64000                    # Real memory (RAM) required (MB)
 #SBATCH --time=72:00:00               # Total run time limit (hh:mm:ss)
 #SBATCH --requeue                     # Return job to the queue if preempted
 #SBATCH --export=ALL                  # Export you current env to the job env
@@ -19,4 +19,4 @@
 cd /scratch/er691/Tripods-Amarel/Acrobot
 
 #  Run python script with input data
-srun python acrobot_hybrid_test.py
+srun python acrobot_hyb_map.py
