@@ -53,10 +53,12 @@ K = [K, K, K]
 
 
 def F(rect):
-    return CMGDB.BoxMap(g, rect, padding=True)
+    return CMGDB.BoxMap(g_on_grid, rect, padding=True)
     # return MG_util.F_K(g_on_grid, rect, K)
     # return MG_util.BoxMapK(g_on_grid, rect, K)
 
+
+base_name += "_m"
 
 morse_graph, map_graph = MG_util.run_CMGDB(
     subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
