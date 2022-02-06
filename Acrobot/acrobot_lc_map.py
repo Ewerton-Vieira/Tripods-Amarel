@@ -7,7 +7,6 @@ import Grid
 sb = 20
 time = 5  # time in seconds
 
-MG_util = CMGDB_util.CMGDB_util()
 
 subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
 
