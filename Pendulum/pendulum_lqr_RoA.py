@@ -60,12 +60,14 @@ def g(X):
     return Y
 
 
-phase_periodic = [True, False]
+phase_periodic = [False, False]
+
+K = [1, 1]
 
 
 def F(rect):
-    return CMGDB.BoxMap(g, rect, padding=True)
-    # return MG_util.F_K(g_on_grid, rect, K)
+    # return CMGDB.BoxMap(g, rect, padding=False)
+    return MG_util.F_K(g, rect, K)
     # return MG_util.BoxMapK(g_on_grid, rect, K)
 
 
@@ -88,4 +90,4 @@ fig, ax = roa.PlotTiles()
 
 plt.show()
 
-roa.save_file(base_name)
+# roa.save_file(base_name)

@@ -14,9 +14,7 @@ from datetime import datetime
 
 
 sb = 20
-time = 25  # time in seconds
-time_lqr = 20
-time_lc = 5
+time = 5  # time in seconds
 
 MG_util = CMGDB_util.CMGDB_util()
 
@@ -33,19 +31,19 @@ lower_bounds = [-EPSILON_THETAS + pi, -EPSILON_THETAS, -EPSILON_DOTS, -EPSILON_D
 upper_bounds = [EPSILON_THETAS + pi, EPSILON_THETAS, EPSILON_DOTS, EPSILON_DOTS]
 
 # base name for the output files.
-base_name = "Acrobot_hyb_time" + str(time) + "_torque" + str(tau) + "_" + str(subdiv_init)
+base_name = "Acrobot_lc_step" + str(time) + "_torque" + str(tau) + "_" + str(subdiv_init)
 
 print(base_name)
 
 # load map
-TM_lqr = TimeMap.TimeMap("acrobot_lqr", time_lqr, "examples/tripods/acrobot_roa.yaml")
-TM_lc = TimeMap.TimeMap("acrobot_lc", time_lc, "examples/tripods/acrobot_lc.yaml")
+grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
+
+file_name = base_name + "_map_grid.csv"
+map = grid.load_map_grid(file_name, lower_bounds, upper_bounds, sb)
 
 
-def g(X):
-    output_of_lc = TM_lc.acrobot_lc(X)
-    # print(output_of_lc)
-    return TM_lqr.acrobot_lqr(output_of_lc)
+def g_on_grid(x):
+    return grid.image_of_vertex_from_loaded_map(map, x, lower_bounds, upper_bounds, sb)
 
 
 phase_periodic = [True, True, False, False]
@@ -55,7 +53,7 @@ K = [K, K, K]
 
 
 def F(rect):
-    return CMGDB.BoxMap(g_on_grid, rect, padding=True)
+    return CMGDB.BoxMap(g, rect, padding=True)
     # return MG_util.F_K(g_on_grid, rect, K)
     # return MG_util.BoxMapK(g_on_grid, rect, K)
 

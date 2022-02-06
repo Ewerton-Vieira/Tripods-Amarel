@@ -9,8 +9,6 @@ time = 16  # time in seconds
 time_lc = 5
 time_lqr = 11
 
-MG_util = CMGDB_util.CMGDB_util()
-
 subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
 
 # POSITION_BOUNDS
@@ -24,7 +22,8 @@ lower_bounds = [-EPSILON_THETAS + pi, -EPSILON_THETAS, -EPSILON_DOTS, -EPSILON_D
 upper_bounds = [EPSILON_THETAS + pi, EPSILON_THETAS, EPSILON_DOTS, EPSILON_DOTS]
 
 # base name for the output files.
-base_name = "Acrobot_hyb_time" + str(time) + "_torque" + str(tau) + "_" + str(subdiv_init)
+base_name = "Acrobot_hyb_time" + str(time) + "_torque" + \
+    str(tau) + "_" + str(subdiv_init) + "_map_grid"
 
 print(base_name)
 
@@ -39,6 +38,8 @@ def g(X):
 
 
 # Grid
+file_name = base_name + "_map_grid.csv"
+
 grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
 
 startTime = datetime.now()
