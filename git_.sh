@@ -1,3 +1,3 @@
 git add -- . ':!output'
 git commit -m "a"
-git push
+git push --force
