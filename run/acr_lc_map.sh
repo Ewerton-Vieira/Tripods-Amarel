@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH --job-name=Acr_h_map # Job name
-#SBATCH --output=Acr_hyb_map%j.out     # STDOUT output file
-#SBATCH --error=Acr_hyb_map%j.err      # STDERR output file (optional)
+#SBATCH --job-name=Acr_l_map # Job name
+#SBATCH --output=Acr_lc_map%j.out     # STDOUT output file
+#SBATCH --error=Acr_lc_map%j.err      # STDERR output file (optional)
 #SBATCH --partition=main              # Partition (job queue)
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks=1                    # Total number of tasks across all nodes
