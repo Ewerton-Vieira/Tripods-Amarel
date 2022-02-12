@@ -17,8 +17,8 @@ import matplotlib.pyplot as plt
 
 from datetime import datetime
 
-sb = 20
-time = 10000  # time in seconds
+sb = 21
+time = 5  # time in seconds
 
 MG_util = CMGDB_util.CMGDB_util()
 
@@ -45,9 +45,9 @@ THETA_BOUND = 3.14159  # np.pi
 # base name to read the output files.
 
 
-type = "hyb_arckermann_interm"
+# type = "hyb_arckermann_interm"
 type = "hyb_arckermann"
-type = "2_hyb_arckermann"
+# type = "2_hyb_arckermann"
 
 # base name for the output files.
 

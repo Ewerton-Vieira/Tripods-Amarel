@@ -62,12 +62,12 @@ def g(X):
 
 phase_periodic = [False, False]
 
-K = [1, 1]
+K = [4, 6]
 
 
 def F(rect):
-    # return CMGDB.BoxMap(g, rect, padding=False)
-    return MG_util.F_K(g, rect, K)
+    return CMGDB.BoxMap(g, rect, padding=True)
+    # return MG_util.F_K(g, rect, K)
     # return MG_util.BoxMapK(g_on_grid, rect, K)
 
 

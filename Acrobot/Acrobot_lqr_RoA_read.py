@@ -34,7 +34,11 @@ base_name = "Acrobot_step" + str(STEP) + "_torque" + str(tau) + \
     "_" + str(subdiv_init)  # + "_" + str(int(100*EPSILON_THETAS))
 
 
-base_name = "Acrobot_hyb_time16_torque14_20"
+base_name = "Acrobot_hyb_time25_torque14_20"
+
+base_name = "Acrobot_lc_time10_torque14_20_m"
+
+# base_name = "Acrobot_lc_time5_torque14_20_m"
 
 print(base_name)
 
@@ -63,18 +67,18 @@ print(base_name)
 #                                 from_file=base_name,  section=section, name_plot=name_plot, from_file_basic=False)
 
 
-# # sections
-# section = ([2, 3], (0, 0, 0, 0))
-# name_plot = base_name + "RoA" + str(section)
-# fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
-#                         from_file=base_name,  section=section, name_plot=name_plot, from_file_basic=False)
-#
-
-# projection
-section = ([2, 3], 'projection')
-name_plot = base_name  # + "RoA"
+# sections
+section = ([2, 3], (0, 0, 0, 0))
+name_plot = base_name + "RoA" + str(section)
 fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
                         from_file=base_name,  section=section, name_plot=name_plot, from_file_basic=False)
+
+
+# # projection
+# section = ([2, 3], 'projection')
+# name_plot = base_name + "RoA"
+# fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
+#                         from_file=base_name,  section=section, name_plot=name_plot, from_file_basic=False)
 
 
 plt.show()

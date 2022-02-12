@@ -19,7 +19,7 @@ from datetime import datetime
 MG_util = CMGDB_util.CMGDB_util()
 
 
-sb = 20
+sb = 16
 time = 1  # time is equal to 10s
 
 # TM = TimeMap.TimeMap("pendulum_lc", time,
@@ -38,7 +38,13 @@ y_max = 6.28318
 
 
 # base name for the output files.
-base_name = "learned_pendulum_time" + \
+
+
+base_name = "pendulum_lc_time" + \
+    str(time) + "_" + \
+    str(subdiv_init)
+
+base_name = "pendulum_lqr_time" + \
     str(time) + "_" + \
     str(subdiv_init)
 
@@ -49,7 +55,7 @@ lower_bounds = [x_min, y_min]
 upper_bounds = [x_max, y_max]
 
 
-fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds, from_file=base_name)
+fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds, from_file=base_name)
 
 
 # fig, ax = RoA.PlotMorseTiles(lower_bounds, upper_bounds,
@@ -62,6 +68,9 @@ TM1 = TimeMap.TimeMap("pendulum_lc", 0.01,
                       "examples/tripods/lc_roa.yaml")
 
 fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, TM1.pendulum_lc, fig=fig, ax=ax, xlim=[
+                                      lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
+
+fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, TM1.pendulum_lqr, fig=fig, ax=ax, xlim=[
                                       lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
 
 plt.savefig(base_name)
