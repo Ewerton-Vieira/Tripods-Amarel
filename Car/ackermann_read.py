@@ -12,12 +12,12 @@ import Ackermann
 import TimeMap
 
 import numpy as np
-
+import matplotlib
 import matplotlib.pyplot as plt
 
 from datetime import datetime
 
-sb = 21
+sb = 19
 time = 5  # time in seconds
 
 MG_util = CMGDB_util.CMGDB_util()
@@ -48,7 +48,8 @@ THETA_BOUND = 3.14159  # np.pi
 # type = "hyb_arckermann_interm"
 type = "hyb_arckermann"
 # type = "2_hyb_arckermann"
-
+# type = "arckermann_lqr"
+# type = "learned_ack_time"
 # base name for the output files.
 
 if type == "hyb_arckermann":
@@ -70,6 +71,11 @@ elif type == "learned_ack":
     base_name = "learned_ack_time" + \
         str(time) + "_" + \
         str(subdiv_init)
+
+elif type == "arckermann_lqr":
+    base_name = "arckermann_lqr" + \
+        str(time) + "_" + \
+        str(subdiv_init) + "sem_pad"
 
 else:
     base_name = "learned_ack_time" + \
@@ -111,15 +117,25 @@ upper_bounds = [x_max, y_max, THETA_BOUND]
 
 # new RoA
 
+# # cubes
 # name_plot = base_name + "RoA"
 # fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
-#                         from_file=base_name, name_plot=name_plot, plot_point=True)
-#
+#                         from_file=base_name, name_plot=name_plot)
 
-section = ([2], (0, 0, 1.57))
+
+# points
 name_plot = base_name + "RoA"
 fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
-                        from_file=base_name,  section=section, name_plot=name_plot)
+                        from_file=base_name, name_plot=name_plot, plot_point=True, cmap=matplotlib.cm.brg)
 
 
+# section = ([2], (0, 0, 1.57))
+# name_plot = base_name + "RoA"
+# fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds,
+#                         from_file=base_name,  section=section, name_plot=name_plot)
+
+ax.set_xlabel(r"$x$")
+ax.set_ylabel(r"$y$")
+ax.set_zlabel(r'$\theta$')
+# plt.savefig(base_name, bbox_inches='tight')
 plt.show()

@@ -46,8 +46,7 @@ VEL_BOUNDS = 1  # size of the box with the center at the goal (velocity)
 THETA_BOUND = 3.141592653589793  # np.pi
 
 
-goal = [6, -10, -1.57]
-
+# goal = [6, -10, -1.57]
 # base name for the output files.
 
 if goal:

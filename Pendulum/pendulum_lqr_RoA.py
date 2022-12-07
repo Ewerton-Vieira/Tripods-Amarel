@@ -19,7 +19,7 @@ MG_util = CMGDB_util.CMGDB_util()
 
 
 sb = 12
-time = 1  # time is equal to 10s
+time = 1 - 0.1  # time is equal to 10s
 
 # subdiv_min = 10  # minimal subdivision to compute Morse Graph
 # subdiv_max = 10  # maximal subdivision to compute Morse Graph
@@ -60,15 +60,22 @@ def g(X):
     return Y
 
 
-phase_periodic = [False, False]
+phase_periodic = [True, False]
 
-K = [4, 6]
+# without noise in t
+K = [1.16, 1.16]
+noise = [0.1, 0.1]
+
+# #with noise in t
+# K = [1.16, 1.16]
+# noise = [0.25, 0.1]
 
 
 def F(rect):
-    return CMGDB.BoxMap(g, rect, padding=True)
+    # return CMGDB.BoxMap(g, rect, padding=True)
     # return MG_util.F_K(g, rect, K)
     # return MG_util.BoxMapK(g_on_grid, rect, K)
+    return MG_util.Box_noisy_K(g, rect, K, noise)
 
 
 morse_graph, map_graph = MG_util.run_CMGDB(
@@ -82,6 +89,7 @@ roa = RoA.RoA(map_graph, morse_graph)
 
 print(f"Time to build the regions of attraction = {datetime.now() - startTime}")
 
+roa.save_file(base_name)
 
 fig, ax = roa.PlotTiles()
 
