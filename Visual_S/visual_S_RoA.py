@@ -27,7 +27,7 @@ def read_data(name_file):
     """Read and embbed"""
     X = []
     Y = []
-    dir_path = os.path.abspath(os.getcwd()) + "/Visual_S/data/"
+    dir_path = os.path.abspath(os.getcwd()) + "/data/"
     name_file_ = dir_path + name_file
     with open(name_file_, 'r') as file:
         line_x = file.readline()
@@ -57,8 +57,8 @@ if __name__ == "__main__":
 
     MG_util = CMGDB_util.CMGDB_util()
 
-    sb = 11
-    time = 0.8  # time is equal to 10s
+    sb = 20
+    time = 1.2  # time is equal to 10s
 
     # subdiv_min = 10  # minimal subdivision to compute Morse Graph
     # subdiv_max = 10  # maximal subdivision to compute Morse Graph

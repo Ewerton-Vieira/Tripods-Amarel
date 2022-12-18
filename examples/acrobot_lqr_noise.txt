@@ -1,0 +1,12 @@
+{
+    'system': 'acrobot_lqr',
+    'yaml': 'examples/tripods/acrobot_lqr_noise.yaml',
+    'sb': '4',
+    'time': '11',
+    'noise_level': '3',
+    'phase_periodic': '1 1 0 0',
+    'K': '1 1 1 1',
+    'noise': '0.04 0.04 0.04 0.04 0.01',
+    'multivalued_map': 'Box_noisy_K',
+    'plot_RoA': '0'
+}
