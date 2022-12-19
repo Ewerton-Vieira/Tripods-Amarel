@@ -44,7 +44,8 @@ def sample_of_data(name_file, skip=1, time_step=2):
 if __name__ == "__main__":
 
     name_file = "data_vs"
+    # name_file = "test.txt"
 
     dir_path = os.path.abspath(os.getcwd()) + "/data/"
     name_file = dir_path + name_file
-    sample_of_data(name_file, skip=1, time_step=5)
+    sample_of_data(name_file, skip=40, time_step=5)

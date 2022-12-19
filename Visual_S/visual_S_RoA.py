@@ -11,11 +11,6 @@ import os
 
 import numpy as np
 
-from sklearn.multioutput import MultiOutputRegressor
-from sklearn.gaussian_process import GaussianProcessRegressor
-from sklearn.gaussian_process.kernels import RBF, WhiteKernel, Matern, ExpSineSquared, ConstantKernel
-
-
 import matplotlib.pyplot as plt
 
 from datetime import datetime
@@ -57,7 +52,7 @@ if __name__ == "__main__":
 
     MG_util = CMGDB_util.CMGDB_util()
 
-    sb = 20
+    sb = 2
     time = 1.2  # time is equal to 10s
 
     # subdiv_min = 10  # minimal subdivision to compute Morse Graph
@@ -72,7 +67,7 @@ if __name__ == "__main__":
 
     # base name for the output files.
     base_name = "Visual_S_time" + \
-        str(10*int(time)) + "_" + \
+        str(int(10*time)) + "_" + \
         str(subdiv_init)
 
     print(base_name)
@@ -85,7 +80,7 @@ if __name__ == "__main__":
 
     # Load data from file
 
-    X, f_X = read_data("vs_trajs_new.txt")
+    X, f_X = read_data("data_vs_new")
 
     X = np.array(X)
     f_X = np.array(f_X)
@@ -110,7 +105,7 @@ if __name__ == "__main__":
 
 
     # Define box map for the data
-    K=[0] * grid.dim
+    K=[1] * grid.dim
     def F(rect):
         return MG_util.F_data(rect, id2image, grid.point2cell, K)
     #
