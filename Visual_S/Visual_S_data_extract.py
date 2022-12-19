@@ -10,8 +10,8 @@ def sample_of_data(name_file, skip=1, time_step=2):
         with open(name_file, 'r') as file:
 
             k = 0
-            # while k < 1593185680:
-            while k < 50:
+            while k < 1593185680:
+            # while k < 50:
 
                 if not k % skip:
                     i = 0
