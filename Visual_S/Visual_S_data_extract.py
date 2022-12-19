@@ -4,13 +4,13 @@ import os
 
 def sample_of_data(name_file, skip=1, time_step=2):
     """Read and embbed"""
-    new_name = name_file + "_new"
+    new_name = f"{name_file}_{skip}_{time_step}"
     with open(new_name, 'w') as new_file:
 
         with open(name_file, 'r') as file:
 
-            # for k in range(1593185680):
             k = 0
+            # while k < 1593185680:
             while k < 50:
 
                 if not k % skip:
@@ -48,4 +48,4 @@ if __name__ == "__main__":
 
     dir_path = os.path.abspath(os.getcwd()) + "/data/"
     name_file = dir_path + name_file
-    sample_of_data(name_file, skip=40, time_step=5)
+    sample_of_data(name_file, skip=1, time_step=4)

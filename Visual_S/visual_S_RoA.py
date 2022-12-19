@@ -1,7 +1,3 @@
-# GP
-
-# import Pendulum_lc as Pd
-
 import CMGDB_util
 import CMGDB
 import Grid
@@ -14,8 +10,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from datetime import datetime
-
-
 
 
 def read_data(name_file):
@@ -52,8 +46,13 @@ if __name__ == "__main__":
 
     MG_util = CMGDB_util.CMGDB_util()
 
-    sb = 2
-    time = 1.2  # time is equal to 10s
+    sb = 20
+    time = 0.8  # time is equal to 10s
+
+    ### file name and parameters ###
+    skip=1
+    time_step=4
+    name_file = "data_vs"
 
     # subdiv_min = 10  # minimal subdivision to compute Morse Graph
     # subdiv_max = 10  # maximal subdivision to compute Morse Graph
@@ -80,7 +79,7 @@ if __name__ == "__main__":
 
     # Load data from file
 
-    X, f_X = read_data("data_vs_new")
+    X, f_X = read_data(f"{name_file}_{skip}_{time_step}")
 
     X = np.array(X)
     f_X = np.array(f_X)
