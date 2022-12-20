@@ -47,22 +47,17 @@ if __name__ == "__main__":
     MG_util = CMGDB_util.CMGDB_util()
 
     sb = 20
-    time = 0.8  # time is equal to 10s
+    time = 1.2  # time is equal to 10s
 
     ### file name and parameters ###
-    skip=1
-    time_step=4
+    skip=40
+    time_step=5
     name_file = "data_vs"
 
     # subdiv_min = 10  # minimal subdivision to compute Morse Graph
     # subdiv_max = 10  # maximal subdivision to compute Morse Graph
     subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
 
-    x_min = -1
-    x_max = 1
-
-    y_min = -1
-    y_max = 1
 
     # base name for the output files.
     base_name = "Visual_S_time" + \
@@ -72,8 +67,8 @@ if __name__ == "__main__":
     print(base_name)
 
     # Define the parameters for CMGDB
-    lower_bounds = [x_min]*6
-    upper_bounds = [x_max]*6
+    lower_bounds = [-0.3, -0.3, -0.5, -1.17866, -1.17866, -1.17866]
+    upper_bounds = [0.3, 0.3, 0.5, 1.17866, 1.17866, 1.17866]
     phase_periodic = [False]*6
 
 

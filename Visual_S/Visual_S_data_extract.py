@@ -41,7 +41,7 @@ def sample_of_data(name_file, skip=1, time_step=2):
                     file.readline()
 
 
-if __name__ == "__main__":
+if __name__ == "__main_1_":
 
     name_file = "data_vs"
     # name_file = "test.txt"
