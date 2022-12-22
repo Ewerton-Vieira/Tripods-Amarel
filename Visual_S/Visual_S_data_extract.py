@@ -25,6 +25,8 @@ def sample_of_data(name_file, skip=1, time_step=2):
                             line_output = str(file.readline())
                             k += 1
                             if line_output == "\n":
+                                if i = 0:
+                                    line_output_last = ""
                                 break
                             i += 1
                             line_output_last = str(line_output)

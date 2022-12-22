@@ -89,10 +89,10 @@ if __name__ == "__main__":
     MG_util = CMGDB_util.CMGDB_util()
 
     def F(rect):
-        X = rect[0:2]
-        if np.linalg.norm(np.array(g(X)) - np.array(g(X))) > 0.0000001:
-            print("HERE FAIL")
-            return False
+        # X = rect[0:2]
+        # if np.linalg.norm(np.array(g(X)) - np.array(g(X))) > 0.0000001:
+        #     print("HERE FAIL")
+        #     return False
         return getattr(MG_util, multivalued_map)(g, rect, K, noise)
         # return CMGDB.BoxMap(g, rect, padding=True)
 
