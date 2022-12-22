@@ -25,16 +25,17 @@ def read_data(name_file):
 
         while line_x != '' and line_y != '':
 
-            line_list = line_x.split()
-            x, y, z = float(line_list[0]), float(line_list[1]), float(line_list[2])
-            r, p, yaw = float(line_list[3]), float(line_list[4]), float(line_list[5])
-            X.append([x, y, z, r, p, yaw])
+            line_list_x = line_x.split()
+            line_list_y = line_y.split()
 
+            if len(line_list_x) == 7 and len(line_list_y) == 7:
+                x, y, z = float(line_list_x[0]), float(line_list_x[1]), float(line_list_x[2])
+                r, p, yaw = float(line_list_x[3]), float(line_list_x[4]), float(line_list_x[5])
+                X.append([x, y, z, r, p, yaw])
 
-            line_list = line_y.split()
-            x, y, z = float(line_list[0]), float(line_list[1]), float(line_list[2])
-            r, p, yaw = float(line_list[3]), float(line_list[4]), float(line_list[5])
-            Y.append([x, y, z, r, p, yaw])
+                x, y, z = float(line_list_y[0]), float(line_list_y[1]), float(line_list_y[2])
+                r, p, yaw = float(line_list_y[3]), float(line_list_y[4]), float(line_list_y[5])
+                Y.append([x, y, z, r, p, yaw])
 
             line_x = file.readline()
             line_y = file.readline()
@@ -47,11 +48,11 @@ if __name__ == "__main__":
     MG_util = CMGDB_util.CMGDB_util()
 
     sb = 20
-    time = 1.2  # time is equal to 10s
+    time = 1.2  # propagation is 0.04
 
     ### file name and parameters ###
-    skip=40
-    time_step=5
+    skip=20
+    time_step=30
     name_file = "data_vs"
 
     # subdiv_min = 10  # minimal subdivision to compute Morse Graph

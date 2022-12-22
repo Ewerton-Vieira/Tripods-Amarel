@@ -5,6 +5,7 @@ import RoA
 import dyn_tools
 import Grid
 import sys
+import ctypes
 
 import NoisyTimeMap
 
@@ -18,8 +19,8 @@ from datetime import datetime
 if __name__ == "__main__":
 
     if len(sys.argv) == 1:
-        # system_file_name = "examples/pendulum_lqr_noise.txt"
-        system_file_name = "examples/acrobot_lqr_noise.txt"
+        system_file_name = "examples/pendulum_lqr_noise.txt"
+        # system_file_name = "examples/acrobot_lqr_noise.txt"
     else:
         system_file_name = sys.argv[1]
 
@@ -74,17 +75,24 @@ if __name__ == "__main__":
     TM.duration = time
     ### noise ###
 
-    names_noise = ['x_0', 'f', 'u_t','t']
+    names_noise = ['xt', 'f']
 
     parameters_upper_bounds = [TM.params["/plant/" + nname + "_noise_params"].as_float_vector()[1] for nname in names_noise]
-    print(f"noise: x & f & u_t & t = {parameters_upper_bounds}")
+    print(f"noise: xt & f = {parameters_upper_bounds}")
 
-    # function of the underlying system
-    g = getattr(TM, TM.system_name)
+    # function of the underlying system and fixing the seed
+    seed_base = TM.params["random_seed"].as_int()
+    def g(X):
+        TM.set_seed(ctypes.c_ulonglong(seed_base * hash(tuple(X))).value);
+        return getattr(TM, TM.system_name)(X)
 
     MG_util = CMGDB_util.CMGDB_util()
 
     def F(rect):
+        X = rect[0:2]
+        if np.linalg.norm(np.array(g(X)) - np.array(g(X))) > 0.0000001:
+            print("HERE FAIL")
+            return False
         return getattr(MG_util, multivalued_map)(g, rect, K, noise)
         # return CMGDB.BoxMap(g, rect, padding=True)
 
@@ -100,8 +108,12 @@ if __name__ == "__main__":
     print(f"Time to build the regions of attraction = {datetime.now() - startTime}")
 
     roa.save_file(base_name)
-    
+
     if plot_RoA: # plot
 
         fig, ax = roa.PlotTiles()
+        ax.set_xlabel(r"$\theta$")
+        ax.set_ylabel(r"$\dot\theta$")
+        # base_name = "/output/" + base_name
+        plt.savefig(base_name, bbox_inches='tight')
         plt.show()

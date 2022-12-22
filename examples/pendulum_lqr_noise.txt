@@ -3,10 +3,10 @@
     'yaml': 'examples/tripods/pendulum_lqr_noise.yaml',
     'sb': '12',
     'time': '1',
-    'noise_level': '5',
+    'noise_level': '20',
     'phase_periodic': '1 0',
     'K': '1 1',
-    'noise': '0.2 0.2 0.1',
+    'noise': '0.016 0.016 0.159',
     'multivalued_map': 'Box_noisy_K',
     'plot_RoA': '1'
 }
