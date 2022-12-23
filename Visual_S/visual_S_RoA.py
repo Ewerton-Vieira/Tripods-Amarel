@@ -42,18 +42,37 @@ def read_data(name_file):
 
     return X, Y
 
-
 if __name__ == "__main__":
+
+
+    system_file_name = "input.txt"
+
+    with open(system_file_name, 'r') as f:
+        config = eval(f.read())
+
+    ######## Define the parameters ################
+    sb = int(config['sb'])
+    time = float(config['time'])  # propagation is 0.04
+    noise_level = int(config['noise_level'])
+    system = config['system']
+    name_file = config['name_file']
+
+    phase_periodic = [bool(a) for a in config['phase_periodic'].split()]
+    K = [float(a) for a in config['K'].split()] # Lipschitz
+    noise = [float(a) for a in config['noise'].split()] # global noise = [noise_x + noise_f + noise_u]*dim
+
+    multivalued_map = config['multivalued_map']
+    plot_RoA = int(config['plot_RoA'])
+
+    skip = int(config['skip'])
+    ######## Define the parameters ################
 
     MG_util = CMGDB_util.CMGDB_util()
 
-    sb = 20
-    time = 1.2  # propagation is 0.04
-
     ### file name and parameters ###
-    skip=20
-    time_step=30
-    name_file = "data_vs"
+
+    time_step = int(np.around(time / 0.04))
+
 
     # subdiv_min = 10  # minimal subdivision to compute Morse Graph
     # subdiv_max = 10  # maximal subdivision to compute Morse Graph
@@ -68,9 +87,8 @@ if __name__ == "__main__":
     print(base_name)
 
     # Define the parameters for CMGDB
-    lower_bounds = [-0.3, -0.3, -0.5, -1.17866, -1.17866, -1.17866]
-    upper_bounds = [0.3, 0.3, 0.5, 1.17866, 1.17866, 1.17866]
-    phase_periodic = [False]*6
+    lower_bounds = [-0.3, -0.3, 0.5, -1.17866, -1.17866, -1.17866]
+    upper_bounds = [0.3, 0.3, 1, 1.17866, 1.17866, 1.17866]
 
 
     # Load data from file
@@ -100,9 +118,9 @@ if __name__ == "__main__":
 
 
     # Define box map for the data
-    K=[1] * grid.dim
+
     def F(rect):
-        return MG_util.F_data(rect, id2image, grid.point2cell, K)
+        return getattr(MG_util, multivalued_map)(rect, id2image, grid.point2cell, K)
     #
     morse_graph, map_graph = MG_util.run_CMGDB(
         subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
