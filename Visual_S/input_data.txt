@@ -9,5 +9,5 @@
     'noise': '0 0 0 0 0 0',
     'multivalued_map': 'F_data',
     'plot_RoA': '0',
-    'skip': '1'
+    'skip': '1000000'
 }

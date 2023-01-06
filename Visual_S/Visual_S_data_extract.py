@@ -54,7 +54,7 @@ def sample_of_data(name_file, skip=1, time_step=2):
 
 if __name__ == "__main__":
 
-    system_file_name = "input.txt"
+    system_file_name = "input_data.txt"
 
     with open(system_file_name, 'r') as f:
         config = eval(f.read())
