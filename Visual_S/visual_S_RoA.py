@@ -80,15 +80,13 @@ if __name__ == "__main__":
 
 
     # base name for the output files.
-    base_name = "Visual_S_time" + \
-        str(int(10*time)) + "_" + \
-        str(subdiv_init)
+    base_name = f"Visual_S_time_{time_step}_{skip}_{subdiv_init}"
 
     print(base_name)
 
     # Define the parameters for CMGDB
-    lower_bounds = [-0.3, -0.3, 0.5, -1.17866, -1.17866, -1.17866]
-    upper_bounds = [0.3, 0.3, 1, 1.17866, 1.17866, 1.17866]
+    lower_bounds = [-0.3, -0.3, 0.5, -1.18, -1.1, -1.18]
+    upper_bounds = [0.3, 0.3, 1.06, 1.18, 1.1, 1.18]
 
 
     # Load data from file

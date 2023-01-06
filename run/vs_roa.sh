@@ -19,5 +19,5 @@
 cd /scratch/er691/Tripods-Amarel/Visual_S/
 
 #  Run python script with input data
-srun python Visual_S_data_extract.py
+# srun python Visual_S_data_extract.py
 srun python visual_S_RoA.py

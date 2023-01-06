@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     phase_periodic = [True, False]
     K = [1]*2  # Lipschitz
-    noise = [0.04]*2 # global noise = noise_x + noise_f + noise_u
+    noise = [0.016, 0.016, 0.013] # global noise = noise_x + noise_f + noise_u
 
     multivalued_map = "Box_noisy_K"
     plot_RoA = True

@@ -5,8 +5,9 @@
     'time': '1',
     'noise_level': '20',
     'phase_periodic': '1 0',
-    'K': '1 1',
-    'noise': '0.016 0.016 0.159',
+    'K': '2 2',
+    'noise': '0.016 0.016 0.013',
     'multivalued_map': 'Box_noisy_K',
-    'plot_RoA': '1'
+    'plot_RoA': '1',
+    'color_map': 'friendly'
 }

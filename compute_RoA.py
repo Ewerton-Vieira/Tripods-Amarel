@@ -12,9 +12,20 @@ import NoisyTimeMap
 import numpy as np
 
 import matplotlib.pyplot as plt
+import matplotlib
 
 from datetime import datetime
 
+def friendly_colors():
+    # friendly colors
+    viridis = matplotlib.cm.get_cmap('viridis', 256)
+    newcolors = viridis(np.linspace(0, 1, 256))
+    orange = np.array([253/256, 174/256, 97/256, 1])
+    yellowish = np.array([233/256, 204/256, 50/256, 1])
+    newcolors[109:146, :] = orange
+    newcolors[219:, :] = yellowish
+    newcmp = matplotlib.colors.ListedColormap(newcolors)
+    return newcmp
 
 if __name__ == "__main__":
 
@@ -41,6 +52,14 @@ if __name__ == "__main__":
 
     multivalued_map = config['multivalued_map']
     plot_RoA = int(config['plot_RoA'])
+
+    if config['color_map'] == 'friendly':
+        cmap = friendly_colors()
+    else:
+        cmap = matplotlib.cm.get_cmap('viridis', 256)
+
+
+
     ######## Define the parameters ################
 
     # ######## Define the parameters example ################
@@ -83,7 +102,9 @@ if __name__ == "__main__":
     # function of the underlying system and fixing the seed
     seed_base = TM.params["random_seed"].as_int()
     def g(X):
-        TM.set_seed(ctypes.c_ulonglong(seed_base * hash(tuple(X))).value);
+        vector = [np.around(a, 7) for a in X]
+        vector = tuple(vector)
+        TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value);
         return getattr(TM, TM.system_name)(X)
 
     MG_util = CMGDB_util.CMGDB_util()
@@ -97,7 +118,7 @@ if __name__ == "__main__":
         # return CMGDB.BoxMap(g, rect, padding=True)
 
     morse_graph, map_graph = MG_util.run_CMGDB(
-        subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init)
+        subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init, cmap = cmap)
 
     # CMGDB.PlotMorseSets(morse_graph)
 
@@ -111,9 +132,22 @@ if __name__ == "__main__":
 
     if plot_RoA: # plot
 
-        fig, ax = roa.PlotTiles()
-        ax.set_xlabel(r"$\theta$")
-        ax.set_ylabel(r"$\dot\theta$")
+        fig, ax = roa.PlotTiles(cmap = cmap)
+
+        if system[0:8] == "pendulum":
+
+
+
+            TM.duration = 0.001
+            fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, g, fig=fig, ax=ax, xlim=[
+                                                  lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
+
+            ax.set_xlabel(r"$\theta$")
+            ax.set_ylabel(r"$\dot\theta$")
+
+        else:
+            fig, ax = roa.PlotTiles()
+
         # base_name = "/output/" + base_name
         plt.savefig(base_name, bbox_inches='tight')
         plt.show()
