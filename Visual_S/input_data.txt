@@ -1,0 +1,13 @@
+{
+    'system': 'Visual_Servo',
+    'name_file': 'data_vs',
+    'sb': '24',
+    'time': '1.2',
+    'noise_level': '0',
+    'phase_periodic': '0 0 0 0 0 0',
+    'K': '1 1 1 1 1 1',
+    'noise': '0 0 0 0 0 0',
+    'multivalued_map': 'F_data',
+    'plot_RoA': '0',
+    'skip': '1'
+}
