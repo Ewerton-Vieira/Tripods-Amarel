@@ -71,6 +71,10 @@ if __name__ == "__main__":
 
     ### file name and parameters ###
 
+    if len(sys.argv) > 2:
+        time = float(sys.argv[1])
+        skip = int(sys.argv[2])
+
     time_step = int(np.around(time / 0.04))
 
 

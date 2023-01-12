@@ -30,8 +30,9 @@ def friendly_colors():
 if __name__ == "__main__":
 
     if len(sys.argv) == 1:
-        system_file_name = "examples/pendulum_lqr_noise.txt"
+        # system_file_name = "examples/pendulum_lqr_noise.txt"
         # system_file_name = "examples/acrobot_lqr_noise.txt"
+        system_file_name = "examples/quadrotor_lqr_noise.txt"
     else:
         system_file_name = sys.argv[1]
 
@@ -94,19 +95,24 @@ if __name__ == "__main__":
     TM.duration = time
     ### noise ###
 
-    names_noise = ['xt', 'f']
+    names_noise = ['xt', 'ft']
+
 
     parameters_upper_bounds = [TM.params["/plant/" + nname + "_noise_params"].as_float_vector()[1] for nname in names_noise]
-    print(f"noise: xt & f = {parameters_upper_bounds}")
+    print(f"noise: xt & ft = {parameters_upper_bounds}")
 
     # function of the underlying system and fixing the seed
     seed_base = TM.params["random_seed"].as_int()
     def g(X):
-        vector = [np.around(a, 7) for a in X]
-        vector = tuple(vector)
-        TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value);
+        # vector = [np.around(a, 7) for a in X]
+        # vector = tuple(vector)
+        # TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value)
         return getattr(TM, TM.system_name)(X)
 
+
+    # print('HERE', TM.system_name,  g([5,5]))
+    #
+    #
     MG_util = CMGDB_util.CMGDB_util()
 
     def F(rect):
@@ -136,14 +142,23 @@ if __name__ == "__main__":
 
         if system[0:8] == "pendulum":
 
-
-
             TM.duration = 0.001
             fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, g, fig=fig, ax=ax, xlim=[
                                                   lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
 
             ax.set_xlabel(r"$\theta$")
             ax.set_ylabel(r"$\dot\theta$")
+
+        elif system[0:9] == "quadrotor":
+
+            fig, ax = plt.subplots(figsize=(8, 8))
+
+            TM.duration = 0.1
+            fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, g, fig=fig, ax=ax, xlim=[
+                                                  lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
+
+            ax.set_xlabel(r"$x$")
+            ax.set_ylabel(r"$\dot x$")
 
         else:
             fig, ax = roa.PlotTiles()

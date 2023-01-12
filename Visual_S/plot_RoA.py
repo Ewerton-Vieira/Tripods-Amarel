@@ -42,8 +42,6 @@ if __name__ == "__main__":
 
     time_step = int(np.around(time / 0.04))
 
-    time_step = 12
-
     # Define the parameters for CMGDB
     lower_bounds = [-0.3, -0.3, 0.5, -1.17866, -1.17866, -1.17866]
     upper_bounds = [0.3, 0.3, 1, 1.17866, 1.17866, 1.17866]
@@ -56,16 +54,16 @@ if __name__ == "__main__":
 
     print(base_name)
 
-    section = ([0,3,4,5],(0.15,0,0.75,0,0,0))
+    section = ([2,3,4,5],(0,0,0.75,0,0,0))
 
     # section = ([2,3,4,5], 'projection')
 
-    fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds, name_plot=base_name, from_file=base_name, section=section)
+    # fig, ax = RoA.PlotTiles(lower_bounds, upper_bounds, name_plot=base_name, from_file=base_name, section=section)
 
     # PlotTiles(lower_bounds, upper_bounds, selection=[], fig_w=8, fig_h=8, xlim=None, ylim=None, fontsize=16,
     #               cmap=matplotlib.cm.get_cmap('viridis', 256), name_plot=' ', from_file=None, plot_point=False, section=None, from_file_basic=False)
 
-    # fig, ax, d_vol = RoA.PlotTiles(lower_bounds, upper_bounds, name_plot=base_name, from_file=base_name, section=section)
-    # print(d_vol[0])
+    fig, ax, d_vol = RoA.PlotTiles(lower_bounds, upper_bounds, name_plot=base_name, from_file=base_name, section=section)
+    print(d_vol[0])
 
     plt.plot()
