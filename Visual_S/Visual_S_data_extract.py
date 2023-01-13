@@ -66,8 +66,8 @@ def simple_sample_of_data(name_file):
         with open(name_file, 'r') as file:
 
             k = 0
-            # while k < 1593185680:
-            while k < 11723:
+            while k < 1593185680:
+            # while k < 11723:
                 k += 1
                 line_input = str(file.readline())
                 line_input_list = line_input.split()
