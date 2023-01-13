@@ -2,7 +2,7 @@
     'system': 'Visual_Servo',
     'name_file': 'data_vs',
     'sb': '21',
-    'time': '1.2',
+    'time': '0',
     'noise_level': '0',
     'phase_periodic': '0 0 0 0 0 0',
     'K': '1 1 1 1 1 1',
