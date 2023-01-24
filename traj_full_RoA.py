@@ -3,9 +3,7 @@ import CMGDB_util
 import CMGDB
 import RoA
 import dyn_tools
-import Grid
 import sys
-import ctypes
 import os
 
 import NoisyTimeMap
@@ -16,6 +14,10 @@ import matplotlib.pyplot as plt
 import matplotlib
 
 from datetime import datetime
+
+
+
+         
 
 def friendly_colors():
     # friendly colors
@@ -31,9 +33,7 @@ def friendly_colors():
 if __name__ == "__main__":
 
     if len(sys.argv) == 1:
-        # system_file_name = "examples/pendulum_lqr_noise.txt"
-        # system_file_name = "examples/acrobot_lqr_noise.txt"
-        system_file_name = "examples/quadrotor_lqr_noise.txt"
+        system_file_name = "examples/traj_tracking_full.txt"
     else:
         system_file_name = sys.argv[1]
 
@@ -59,31 +59,11 @@ if __name__ == "__main__":
         cmap = friendly_colors()
     else:
         cmap = matplotlib.cm.get_cmap('viridis', 256)
-
-
-
     ######## Define the parameters ################
 
-    # ######## Define the parameters example ################
-    # sb = 14
-    # time = 1
-    # noise_level = 5
-    # system = "pendulum_lqr"
-    # yaml = "examples/tripods/pendulum_noise.yaml"
-    #
-    # phase_periodic = [True, False]
-    # K = [1]*2  # Lipschitz
-    # noise = [0.04]*2 # global noise = noise_x + noise_f + noise_u
-    #
-    # multivalued_map = "Box_noisy_K"
-    # plot_RoA = True
-    # ######## Define the parameters ################
 
     subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
     # base name for the output files.
-    base_name = f"{system}_t{int(10*time)}_sb{subdiv_init}_ns{noise_level}"
-
-    print(base_name)
 
     # load map
     TM = NoisyTimeMap.NoisyTimeMap(yaml)
@@ -92,28 +72,22 @@ if __name__ == "__main__":
     TM.ss.print_bounds()
     lower_bounds = TM.ss.get_lower_bounds()
     upper_bounds = TM.ss.get_upper_bounds()
+
+    base_name = f"{system}_traj_full_t{int(10*time)}_sb{subdiv_init}_ns{noise_level}"
+    print(base_name)
+
     # time
     TM.duration = time
     ### noise ###
-
     names_noise = ['xt', 'ft']
-
-
     parameters_upper_bounds = [TM.params["/plant/" + nname + "_noise_params"].as_float_vector()[1] for nname in names_noise]
     print(f"noise: xt & ft = {parameters_upper_bounds}")
 
-    # function of the underlying system and fixing the seed
-    seed_base = TM.params["random_seed"].as_int()
+    ### function ###
     def g(X):
-        # vector = [np.around(a, 7) for a in X]
-        # vector = tuple(vector)
-        # TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value)
-        return getattr(TM, TM.system_name)(X)
+        return TM.pendulum_trajectory_ilqr(X)
 
-
-    # print('HERE', TM.system_name,  g([5,5]))
-    #
-    #
+    
     MG_util = CMGDB_util.CMGDB_util()
 
     def F(rect):
@@ -121,8 +95,8 @@ if __name__ == "__main__":
         # if np.linalg.norm(np.array(g(X)) - np.array(g(X))) > 0.0000001:
         #     print("HERE FAIL")
         #     return False
-        return getattr(MG_util, multivalued_map)(g, rect, K, noise)
-        # return CMGDB.BoxMap(g, rect, padding=True)
+        # return getattr(MG_util, multivalued_map)(g, rect, K, noise)
+        return CMGDB.BoxMap(g, rect, padding=True)
 
     morse_graph, map_graph = MG_util.run_CMGDB(
         subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init, cmap = cmap)
@@ -135,7 +109,7 @@ if __name__ == "__main__":
 
     print(f"Time to build the regions of attraction = {datetime.now() - startTime}")
 
-    roa.save_file(base_name)
+    # roa.save_file(base_name)
 
     if plot_RoA: # plot
 
@@ -143,44 +117,16 @@ if __name__ == "__main__":
 
         if system[0:8] == "pendulum":
 
-            TM.duration = 0.001
+            TM.duration = 0.03
             fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, g, fig=fig, ax=ax, xlim=[
                                                   lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
 
             ax.set_xlabel(r"$\theta$")
             ax.set_ylabel(r"$\dot\theta$")
 
-        elif system[0:9] == "quadrotor":
-
-            # fig, ax = plt.subplots(figsize=(8, 8))
-
-
-
-            TM.duration = 0.01
-            fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, g, fig=fig, ax=ax, xlim=[
-                                                  lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
-
-            # plot trajectory
-            # start_height, initial_velocity = (20, -14)
-            # traj = [[start_height,initial_velocity]]
-            # initial_point = [start_height,initial_velocity]
-            # for i in range(100000):
-            #         end_point = g(initial_point)
-            #         traj.append(end_point)
-            #         initial_point = end_point
-            #
-            # traj = np.array(traj)
-            # print(traj[-1])
-            #
-            # plt.plot(traj[:,0],traj[:,1],color='blue')
-            # plt.scatter(traj[0,0],traj[0,1],color='green')
-            # plt.scatter(traj[-1,0],traj[-1,1],color='red')
-
-            ax.set_xlabel(r"$x$")
-            ax.set_ylabel(r"$\dot x$")
-
         else:
             fig, ax = roa.PlotTiles()
+        
 
         base_name =  os.path.abspath(os.getcwd()) + "/output/" + base_name
         plt.savefig(base_name, bbox_inches='tight')

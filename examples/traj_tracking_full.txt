@@ -1,12 +1,12 @@
 {
-    'system': 'quadrotor_lqr',
-    'yaml': 'examples/tripods/quadrotor.yaml',
+    'system': 'pendulum',
+    'yaml': 'examples/tripods/traj_tracking.yaml',
     'sb': '20',
-    'time': '100',
+    'time': '1',
     'noise_level': '0',
     'phase_periodic': '0 0',
-    'K': '2 2',
-    'noise': '0 0 0',
+    'K': '1 1',
+    'noise': '0.0 0.0 0.0',
     'multivalued_map': 'Box_noisy_K',
     'plot_RoA': '1',
     'color_map': 'friendly'

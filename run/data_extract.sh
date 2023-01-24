@@ -3,7 +3,7 @@
 #SBATCH --job-name=Data_ex # Job name
 #SBATCH --output=Data_ex%j.out     # STDOUT output file
 #SBATCH --error=Data_ex%j.err      # STDERR output file (optional)
-#SBATCH --partition=main              # Partition (job queue)
+#SBATCH --partition=p_mischaik_1     # Partition (job queue)
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks=1                    # Total number of tasks across all nodes
 #SBATCH --cpus-per-task=1             # Number of CPUs (cores) per task (>1 if multithread tasks)

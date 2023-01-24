@@ -6,8 +6,8 @@ import numpy as np
 def sample_of_data(name_file, skip=1, time_step=2):
     """Read and embbed"""
     new_name = f"{name_file}_{skip}_{time_step}"
-    if time_step == 0:
-        simple_sample_of_data(name_file)
+    if skip==1:
+        simple_sample_of_data(name_file, time_step)
         return
 
     with open(new_name, 'w') as new_file:
@@ -58,16 +58,18 @@ def sample_of_data(name_file, skip=1, time_step=2):
                     k += 1
                     file.readline()
 
-def simple_sample_of_data(name_file):
+def simple_sample_of_data(name_file, time_step = 0):
     """Read and embbed"""
-    new_name = f"{name_file}_1_0"
+    new_name = f"{name_file}_1_{time_step}"
+    if time_step == 0:  # full orbit
+        time_step = 123456789
     with open(new_name, 'w') as new_file:
 
         with open(name_file, 'r') as file:
 
             k = 0
-            while k < 1593185680:
-            # while k < 11723:
+            # while k < 1593185680:
+            while k < 11723:
                 k += 1
                 line_input = str(file.readline())
                 line_input_list = line_input.split()
@@ -76,12 +78,13 @@ def simple_sample_of_data(name_file):
                 line_output = str(line_input)
                 line_output_last = str(line_output)
                 while line_output != "\n" and line_output != "":
-                    line_output_last = str(line_output)
+                    if i <= time_step:
+                        line_output_last = str(line_output)
+                    i += 1
                     k += 1
                     line_output = str(file.readline())
 
                 line_output_list = line_output_last.split()
-                print(f"line_output={line_output} and line_output_last = {line_output_last}")
                 if len(line_output_list)==len(line_input_list)==7:
                     if int(line_output_list[6]) > 2:
                         new_file.writelines(line_input)
@@ -121,6 +124,7 @@ if __name__ == "__main__":
 
     time_step = int(np.around(time / 0.04))
 
+    print(time_step)
 
 
     sample_of_data(name_file, skip=skip, time_step=time_step)

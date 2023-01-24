@@ -1,14 +1,14 @@
 #!/bin/bash
 
-#SBATCH --job-name=Vs_RoA # Job name
-#SBATCH --output=Vs_RoA%j.out     # STDOUT output file
+#SBATCH --job-name=Traj_full_RoA # Job name
+#SBATCH --output=Traj_full_RoA%j.out     # STDOUT output file
 #SBATCH --error=Vs_RoA%j.err      # STDERR output file (optional)
 #SBATCH --partition=p_mischaik_1      # Partition (job queue)
 #SBATCH --nodes=1                     # Number of nodes
 #SBATCH --ntasks=1                    # Total number of tasks across all nodes
 #SBATCH --cpus-per-task=1             # Number of CPUs (cores) per task (>1 if multithread tasks)
 #SBATCH --mem=64000                    # Real memory (RAM) required (MB)
-#SBATCH --time=24:00:00               # Total run time limit (hh:mm:ss)
+#SBATCH --time=8:00:00               # Total run time limit (hh:mm:ss)
 #SBATCH --requeue                     # Return job to the queue if preempted
 #SBATCH --export=ALL                  # Export you current env to the job env
 
@@ -16,8 +16,7 @@
 #module purge
 #module load python/3.5.2
 
-cd /scratch/er691/Tripods-Amarel/Visual_S/
+cd /scratch/er691/Tripods-Amarel/
 
-#  Run python script with input data
-# srun python Visual_S_data_extract.py 0 1
-srun python visual_S_RoA.py 0 1
+
+srun python traj_full_RoA.py
