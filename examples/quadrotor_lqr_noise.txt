@@ -1,7 +1,7 @@
 {
     'system': 'quadrotor_lqr',
     'yaml': 'examples/tripods/quadrotor.yaml',
-    'sb': '20',
+    'sb': '1',
     'time': '100',
     'noise_level': '0',
     'phase_periodic': '0 0',

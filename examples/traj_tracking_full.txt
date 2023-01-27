@@ -1,13 +1,14 @@
 {
     'system': 'pendulum',
     'yaml': 'examples/tripods/traj_tracking.yaml',
-    'sb': '20',
+    'sb': '15',
     'time': '1',
     'noise_level': '0',
-    'phase_periodic': '0 0',
-    'K': '1 1',
+    'phase_periodic': '1 0',
+    'K': '0.1 0.1',
     'noise': '0.0 0.0 0.0',
     'multivalued_map': 'Box_noisy_K',
     'plot_RoA': '1',
-    'color_map': 'friendly'
+    'color_map': 'friendly',
+    'input_file': 'traj_tracking_data'
 }

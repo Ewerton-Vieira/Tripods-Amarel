@@ -1,0 +1,13 @@
+{
+    'system': 'pendulum_lc',
+    'yaml': 'examples/tripods/pendulum_lc.yaml',
+    'sb': '16',
+    'time': '1',
+    'noise_level': '20',
+    'phase_periodic': '1 0',
+    'K': '1 1',
+    'noise': '0.006 0.006 0.006',
+    'multivalued_map': 'Box_noisy_K',
+    'plot_RoA': '1',
+    'color_map': 'friendly'
+}

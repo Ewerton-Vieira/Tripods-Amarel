@@ -33,7 +33,8 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         # system_file_name = "examples/pendulum_lqr_noise.txt"
         # system_file_name = "examples/acrobot_lqr_noise.txt"
-        system_file_name = "examples/quadrotor_lqr_noise.txt"
+        # system_file_name = "examples/quadrotor_lqr_noise.txt"
+        system_file_name = "examples/pendulum_lc_noise.txt"
     else:
         system_file_name = sys.argv[1]
 
@@ -105,9 +106,9 @@ if __name__ == "__main__":
     # function of the underlying system and fixing the seed
     seed_base = TM.params["random_seed"].as_int()
     def g(X):
-        # vector = [np.around(a, 7) for a in X]
-        # vector = tuple(vector)
-        # TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value)
+        vector = [np.around(a, 7) for a in X]
+        vector = tuple(vector)
+        TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value)
         return getattr(TM, TM.system_name)(X)
 
 

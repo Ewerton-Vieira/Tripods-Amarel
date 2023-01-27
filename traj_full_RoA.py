@@ -5,6 +5,7 @@ import RoA
 import dyn_tools
 import sys
 import os
+import Grid
 
 import NoisyTimeMap
 
@@ -15,9 +16,36 @@ import matplotlib
 
 from datetime import datetime
 
+def read_data(name_file):
+    """Read and embbed"""
+    X = []
+    Y = []
+    with open(name_file, 'r') as file:
+        line_x = file.readline()
+        line_y = file.readline()
 
 
-         
+        while line_x != '' and line_y != '':
+
+            line_list_x = line_x.split()
+            line_list_y = line_y.split()
+
+            
+            x, y = float(line_list_x[0]), float(line_list_x[1])
+            X.append([x, y])
+ 
+            # if -0.2<x<0.2 and 0<y<0.3:
+            #     Y.append([x, 8])
+            # else:
+            x, y = float(line_list_y[0]), float(line_list_y[1])
+            Y.append([x, y])
+            
+            line_x = file.readline()
+            line_y = file.readline()
+    X = np.array(X)
+    Y = np.array(Y)
+
+    return np.concatenate((X,Y),axis=1)         
 
 def friendly_colors():
     # friendly colors
@@ -59,6 +87,10 @@ if __name__ == "__main__":
         cmap = friendly_colors()
     else:
         cmap = matplotlib.cm.get_cmap('viridis', 256)
+
+    if config['input_file']:
+        input_file = f"{os.path.abspath(os.getcwd())}/data/{config['input_file']}_{config['time']}0.txt"
+        data = read_data(input_file)
     ######## Define the parameters ################
 
 
@@ -84,20 +116,32 @@ if __name__ == "__main__":
     print(f"noise: xt & ft = {parameters_upper_bounds}")
 
     ### function ###
+
     def g(X):
         return TM.pendulum_trajectory_ilqr(X)
 
-    
     MG_util = CMGDB_util.CMGDB_util()
 
-    def F(rect):
-        # X = rect[0:2]
-        # if np.linalg.norm(np.array(g(X)) - np.array(g(X))) > 0.0000001:
-        #     print("HERE FAIL")
-        #     return False
-        # return getattr(MG_util, multivalued_map)(g, rect, K, noise)
-        return CMGDB.BoxMap(g, rect, padding=True)
+    if config['input_file']:
+        grid = Grid.Grid(lower_bounds, upper_bounds, sb)
 
+        id2image = grid.id2image(data)
+  
+        def F(rect):
+            return MG_util.F_data_wa(rect, id2image, grid.point2cell, K)
+
+    else:
+
+
+        def F(rect):
+            # X = rect[0:2]
+            # if np.linalg.norm(np.array(g(X)) - np.array(g(X))) > 0.0000001:
+            #     print("HERE FAIL")
+            #     return False
+            # return getattr(MG_util, multivalued_map)(g, rect, K, noise)
+            return CMGDB.BoxMap(g, rect, padding=True)
+
+    
     morse_graph, map_graph = MG_util.run_CMGDB(
         subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init, cmap = cmap)
 
@@ -114,8 +158,11 @@ if __name__ == "__main__":
     if plot_RoA: # plot
 
         fig, ax = roa.PlotTiles(cmap = cmap)
+        # fig, ax = plt.subplots(figsize=(8, 8))
 
         if system[0:8] == "pendulum":
+
+
 
             TM.duration = 0.03
             fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, g, fig=fig, ax=ax, xlim=[
@@ -123,6 +170,17 @@ if __name__ == "__main__":
 
             ax.set_xlabel(r"$\theta$")
             ax.set_ylabel(r"$\dot\theta$")
+
+            plt.scatter(data[:,2], data[:,3], marker='.')
+
+            # for i in [347, 957, 23964, 30768]:
+            #     center = CMGDB.CenterPoint(morse_graph.phase_space_box(i))[0]
+            #     id_of_rect = grid.point2cell(center)
+            #     id_of_rect_inside_CMGDB = map_graph.adjacencies(i) 
+            #     print(i, center, id2image[id_of_rect], id_of_rect_inside_CMGDB)
+
+
+            
 
         else:
             fig, ax = roa.PlotTiles()
