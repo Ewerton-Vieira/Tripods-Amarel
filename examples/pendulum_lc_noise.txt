@@ -5,7 +5,7 @@
     'time': '1',
     'noise_level': '0',
     'phase_periodic': '1 0',
-    'K': '0 0',
+    'K': '0.3 0.3',
     'noise': '0.00 0.00 0.00',
     'multivalued_map': 'Box_noisy_K',
     'plot_RoA': '1',

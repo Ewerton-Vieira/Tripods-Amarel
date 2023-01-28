@@ -19,4 +19,4 @@
 cd /scratch/er691/Tripods-Amarel/
 
 #  Run python script with input data
-srun python collect_data.py examples/quadrotor_lqr_noise.txt
+srun python collect_data.py examples/traj_tracking_full.txt

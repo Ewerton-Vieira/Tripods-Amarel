@@ -1,7 +1,7 @@
 {
-    'system': 'pendulum',
+    'system': 'pendulum_trajectory_ilqr',
     'yaml': 'examples/tripods/traj_tracking.yaml',
-    'sb': '15',
+    'sb': '16',
     'time': '1',
     'noise_level': '0',
     'phase_periodic': '1 0',

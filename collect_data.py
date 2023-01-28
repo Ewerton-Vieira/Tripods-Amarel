@@ -35,6 +35,7 @@ if __name__ == "__main__":
         # system_file_name = "examples/acrobot_lqr_noise.txt"
         system_file_name = "examples/quadrotor_lqr_noise.txt"
         # system_file_name = "examples/pendulum_lc_noise.txt"
+        system_file_name = "examples/quadrotor_lqr_noise.txt"
     else:
         system_file_name = sys.argv[1]
 
@@ -74,7 +75,7 @@ if __name__ == "__main__":
 
     # load map
     TM = NoisyTimeMap.NoisyTimeMap(yaml)
-    print(f"system: {TM.system_name}")
+    print(f"system: {system} = {TM.system_name}")
     # bounds
     TM.ss.print_bounds()
     lower_bounds = TM.ss.get_lower_bounds()
@@ -90,8 +91,9 @@ if __name__ == "__main__":
     print(f"noise: xt & ft = {parameters_upper_bounds}")
 
     # function of the underlying system
+
     def g(X):
-        return getattr(TM, TM.system_name)(X)
+        return getattr(TM, system)(X)
 
 
     # print('HERE', TM.system_name,  g([5,5]))
