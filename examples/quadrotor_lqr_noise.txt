@@ -1,7 +1,7 @@
 {
     'system': 'quadrotor_lqr',
     'yaml': 'examples/tripods/quadrotor.yaml',
-    'sb': '1',
+    'sb': '18',
     'time': '100',
     'noise_level': '0',
     'phase_periodic': '0 0',
@@ -9,5 +9,6 @@
     'noise': '0 0 0',
     'multivalued_map': 'Box_noisy_K',
     'plot_RoA': '1',
-    'color_map': 'friendly'
+    'color_map': 'friendly',
+    'data_input': ''
 }

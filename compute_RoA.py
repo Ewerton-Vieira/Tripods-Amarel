@@ -33,8 +33,8 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         # system_file_name = "examples/pendulum_lqr_noise.txt"
         # system_file_name = "examples/acrobot_lqr_noise.txt"
-        # system_file_name = "examples/quadrotor_lqr_noise.txt"
-        system_file_name = "examples/pendulum_lc_noise.txt"
+        system_file_name = "examples/quadrotor_lqr_noise.txt"
+        # system_file_name = "examples/pendulum_lc_noise.txt"
     else:
         system_file_name = sys.argv[1]
 
@@ -60,25 +60,10 @@ if __name__ == "__main__":
         cmap = friendly_colors()
     else:
         cmap = matplotlib.cm.get_cmap('viridis', 256)
+    
+    if config['data_input']:
+        data_input = np.load(config['data_input'])
 
-
-
-    ######## Define the parameters ################
-
-    # ######## Define the parameters example ################
-    # sb = 14
-    # time = 1
-    # noise_level = 5
-    # system = "pendulum_lqr"
-    # yaml = "examples/tripods/pendulum_noise.yaml"
-    #
-    # phase_periodic = [True, False]
-    # K = [1]*2  # Lipschitz
-    # noise = [0.04]*2 # global noise = noise_x + noise_f + noise_u
-    #
-    # multivalued_map = "Box_noisy_K"
-    # plot_RoA = True
-    # ######## Define the parameters ################
 
     subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
     # base name for the output files.
@@ -103,27 +88,35 @@ if __name__ == "__main__":
     parameters_upper_bounds = [TM.params["/plant/" + nname + "_noise_params"].as_float_vector()[1] for nname in names_noise]
     print(f"noise: xt & ft = {parameters_upper_bounds}")
 
-    # function of the underlying system and fixing the seed
-    seed_base = TM.params["random_seed"].as_int()
-    def g(X):
-        vector = [np.around(a, 7) for a in X]
-        vector = tuple(vector)
-        TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value)
-        return getattr(TM, TM.system_name)(X)
 
-
-    # print('HERE', TM.system_name,  g([5,5]))
-    #
-    #
     MG_util = CMGDB_util.CMGDB_util()
 
-    def F(rect):
-        # X = rect[0:2]
-        # if np.linalg.norm(np.array(g(X)) - np.array(g(X))) > 0.0000001:
-        #     print("HERE FAIL")
-        #     return False
-        return getattr(MG_util, multivalued_map)(g, rect, K, noise)
-        # return CMGDB.BoxMap(g, rect, padding=True)
+    if config['data_input']:
+        grid = Grid.Grid(lower_bounds, upper_bounds, sb)
+        # id2image = grid.id2image(data_input)
+  
+        # def F(rect):
+        #     return MG_util.F_data_wa(rect, id2image, grid.point2cell, K)
+
+        file_name =  f"{os.path.abspath(os.getcwd())}/data/{base_name}_map_grid.csv"
+        map = grid.load_map_grid(file_name)
+
+        def g_on_grid(x):
+            return grid.image_of_vertex_from_loaded_map(map, x)
+        def F(rect):
+            return getattr(MG_util, multivalued_map)(g_on_grid, rect, K, noise)
+    else:
+        # function of the underlying system and fixing the seed
+        seed_base = TM.params["random_seed"].as_int()
+        def g(X):
+            vector = [np.around(a, 7) for a in X]
+            vector = tuple(vector)
+            TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value)
+            return getattr(TM, TM.system_name)(X)
+
+        def F(rect):
+            return getattr(MG_util, multivalued_map)(g, rect, K, noise)
+            # return CMGDB.BoxMap(g, rect, padding=True)
 
     morse_graph, map_graph = MG_util.run_CMGDB(
         subdiv_min, subdiv_max, lower_bounds, upper_bounds, phase_periodic, F, base_name, subdiv_init, cmap = cmap)
@@ -139,6 +132,8 @@ if __name__ == "__main__":
     roa.save_file(base_name)
 
     if plot_RoA: # plot
+        def g(X):
+            return getattr(TM, TM.system_name)(X)
 
         fig, ax = roa.PlotTiles(cmap = cmap)
 

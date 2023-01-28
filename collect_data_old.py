@@ -33,8 +33,8 @@ if __name__ == "__main__":
     if len(sys.argv) == 1:
         # system_file_name = "examples/pendulum_lqr_noise.txt"
         # system_file_name = "examples/acrobot_lqr_noise.txt"
-        system_file_name = "examples/quadrotor_lqr_noise.txt"
-        # system_file_name = "examples/pendulum_lc_noise.txt"
+        # system_file_name = "examples/quadrotor_lqr_noise.txt"
+        system_file_name = "examples/pendulum_lc_noise.txt"
     else:
         system_file_name = sys.argv[1]
 
@@ -66,9 +66,7 @@ if __name__ == "__main__":
 
     subdiv_init = subdiv_min = subdiv_max = sb  # non adaptive proceedure
     # base name for the output files.
-    base_name = base_name = f"{system}_t{int(10*time)}_sb{sb}_ns{noise_level}_map_grid"
-
-
+    base_name = f"{system}_t{int(10*time)}_data"
 
     print(base_name)
 
@@ -97,24 +95,18 @@ if __name__ == "__main__":
     # print('HERE', TM.system_name,  g([5,5]))
 
 
-    # grid = Grid.Grid(lower_bounds, upper_bounds, sb)
+    grid = Grid.Grid(lower_bounds, upper_bounds, sb)
 
-    # data_x = grid.uniform_sample()
+    data_x = grid.uniform_sample()
 
-    # # plt.scatter(data_x[:,0], data_x[:,1])
+    # plt.scatter(data_x[:,0], data_x[:,1])
 
-    # data_fx =  np.array([g(x_.tolist()) for x_ in data_x])
+    data_fx =  np.array([g(x_.tolist()) for x_ in data_x])
 
-    # # plt.scatter(data_fx[:,0], data_fx[:,1])
+    # plt.scatter(data_fx[:,0], data_fx[:,1])
 
-    # # plt.show()
+    # plt.show()
 
-    # data = np.concatenate((data_x, data_fx), axis=1)
+    data = np.concatenate((data_x, data_fx), axis=1)
 
-    # np.save(base_name, data) 
-
-    # Grid
-    grid = Grid.Grid(lower_bounds, upper_bounds, sb, base_name=base_name)
-
-    base_name =  os.path.abspath(os.getcwd()) + "/data/" + base_name
-    grid.write_map_grid(g, base_name=base_name)
+    np.save(base_name, data) 

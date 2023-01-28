@@ -9,5 +9,6 @@
     'noise': '0.06 0.06 0.06 0.06 0.06',
     'multivalued_map': 'Box_noisy_K',
     'plot_RoA': '0',
-    'color_map': 'friendly'
+    'color_map': 'friendly',
+    'data_input': ''
 }
