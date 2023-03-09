@@ -31,10 +31,11 @@ def friendly_colors():
 if __name__ == "__main__":
 
     if len(sys.argv) == 1:
-        # system_file_name = "examples/pendulum_lqr_noise.txt"
+        system_file_name = "examples/pendulum_lqr_noise.txt"
         # system_file_name = "examples/acrobot_lqr_noise.txt"
-        system_file_name = "examples/quadrotor_lqr_noise.txt"
+        # system_file_name = "examples/quadrotor_lqr_noise.txt"
         # system_file_name = "examples/pendulum_lc_noise.txt"
+        # system_file_name = "examples/traj_tracking_full.txt"
     else:
         system_file_name = sys.argv[1]
 
@@ -73,7 +74,7 @@ if __name__ == "__main__":
 
     # load map
     TM = NoisyTimeMap.NoisyTimeMap(yaml)
-    print(f"system: {TM.system_name}")
+    print(f"system: {system} = {TM.system_name}")
     # bounds
     TM.ss.print_bounds()
     lower_bounds = TM.ss.get_lower_bounds()
@@ -105,6 +106,7 @@ if __name__ == "__main__":
             return grid.image_of_vertex_from_loaded_map(map, x)
         def F(rect):
             return getattr(MG_util, multivalued_map)(g_on_grid, rect, K, noise)
+        
     else:
         # function of the underlying system and fixing the seed
         seed_base = TM.params["random_seed"].as_int()
@@ -112,7 +114,7 @@ if __name__ == "__main__":
             vector = [np.around(a, 7) for a in X]
             vector = tuple(vector)
             TM.set_seed(ctypes.c_ulonglong(seed_base * hash(vector)).value)
-            return getattr(TM, TM.system_name)(X)
+            return getattr(TM, system)(X)
 
         def F(rect):
             return getattr(MG_util, multivalued_map)(g, rect, K, noise)
@@ -133,15 +135,22 @@ if __name__ == "__main__":
 
     if plot_RoA: # plot
         def g(X):
-            return getattr(TM, TM.system_name)(X)
+            return getattr(TM, system)(X)
 
         fig, ax = roa.PlotTiles(cmap = cmap)
+
+
 
         if system[0:8] == "pendulum":
 
             TM.duration = 0.001
+            N_traj = 25
+            if system == "pendulum_trajectory_ilqr":
+                TM.duration = 0.03
+                N_traj = 11
+
             fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, g, fig=fig, ax=ax, xlim=[
-                                                  lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
+                                                  lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]], N_traj = N_traj)
 
             ax.set_xlabel(r"$\theta$")
             ax.set_ylabel(r"$\dot\theta$")
@@ -156,18 +165,19 @@ if __name__ == "__main__":
             fig, ax = dyn_tools.Plot_trajectories(lower_bounds, upper_bounds, g, fig=fig, ax=ax, xlim=[
                                                   lower_bounds[0], upper_bounds[0]], ylim=[lower_bounds[1], upper_bounds[1]])
 
-            # plot trajectory
-            # start_height, initial_velocity = (20, -14)
+            # # plot trajectory
+            # # start_height, initial_velocity = (20, -14)
+            # start_height, initial_velocity = (20, -10)
             # traj = [[start_height,initial_velocity]]
             # initial_point = [start_height,initial_velocity]
-            # for i in range(100000):
+            # for i in range(1000):
             #         end_point = g(initial_point)
             #         traj.append(end_point)
             #         initial_point = end_point
-            #
+            
             # traj = np.array(traj)
             # print(traj[-1])
-            #
+            
             # plt.plot(traj[:,0],traj[:,1],color='blue')
             # plt.scatter(traj[0,0],traj[0,1],color='green')
             # plt.scatter(traj[-1,0],traj[-1,1],color='red')

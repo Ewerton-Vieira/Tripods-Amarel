@@ -1,9 +1,9 @@
 {
     'system': 'pendulum_lc',
     'yaml': 'examples/tripods/pendulum_lc.yaml',
-    'sb': '16',
+    'sb': '18',
     'time': '1',
-    'noise_level': '0',
+    'noise_level': '5',
     'phase_periodic': '1 0',
     'K': '0.3 0.3',
     'noise': '0.00 0.00 0.00',

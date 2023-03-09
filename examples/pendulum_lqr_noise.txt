@@ -1,14 +1,14 @@
 {
     'system': 'pendulum_lqr',
-    'yaml': 'examples/tripods/pendulum_lqr_noise.yaml',
-    'sb': '12',
+    'yaml': 'examples/tripods/pendulum_lqr.yaml',
+    'sb': '16',
     'time': '1',
-    'noise_level': '20',
+    'noise_level': '25',
     'phase_periodic': '1 0',
     'K': '2 2',
-    'noise': '0.016 0.016 0.013',
+    'noise': '0.06 0.06 0.07',
     'multivalued_map': 'Box_noisy_K',
     'plot_RoA': '1',
     'color_map': 'friendly',
-    'data_input': ''
+    'data_input': 'data/test.npy'
 }

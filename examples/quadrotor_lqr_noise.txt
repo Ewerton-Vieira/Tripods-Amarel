@@ -5,10 +5,10 @@
     'time': '100',
     'noise_level': '0',
     'phase_periodic': '0 0',
-    'K': '2 2',
+    'K': '1 2',
     'noise': '0 0 0',
     'multivalued_map': 'Box_noisy_K',
     'plot_RoA': '1',
     'color_map': 'friendly',
-    'data_input': ''
+    'data_input': 'data/test.npy'
 }

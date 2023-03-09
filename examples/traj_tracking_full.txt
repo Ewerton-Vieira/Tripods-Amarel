@@ -2,13 +2,13 @@
     'system': 'pendulum_trajectory_ilqr',
     'yaml': 'examples/tripods/traj_tracking.yaml',
     'sb': '16',
-    'time': '1',
+    'time': '0.3',
     'noise_level': '0',
     'phase_periodic': '1 0',
-    'K': '0.1 0.1',
+    'K': '0 0',
     'noise': '0.0 0.0 0.0',
-    'multivalued_map': 'Box_noisy_K',
+    'multivalued_map': 'Box_noisy_K_wa',
     'plot_RoA': '1',
     'color_map': 'friendly',
-    'input_file': 'traj_tracking_data'
+    'data_input': 'data/test.npy'
 }

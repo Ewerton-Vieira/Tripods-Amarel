@@ -31,11 +31,11 @@ def friendly_colors():
 if __name__ == "__main__":
 
     if len(sys.argv) == 1:
-        # system_file_name = "examples/pendulum_lqr_noise.txt"
+        system_file_name = "examples/pendulum_lqr_noise.txt"
         # system_file_name = "examples/acrobot_lqr_noise.txt"
-        system_file_name = "examples/quadrotor_lqr_noise.txt"
+        # system_file_name = "examples/quadrotor_lqr_noise.txt"
         # system_file_name = "examples/pendulum_lc_noise.txt"
-        system_file_name = "examples/quadrotor_lqr_noise.txt"
+        
     else:
         system_file_name = sys.argv[1]
 
