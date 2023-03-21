@@ -13,7 +13,7 @@ def exp_cluster(name_sh = "aemg.sh"):
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--run_dir',help='Directory of run files',type=str,default='run/')
+    parser.add_argument('--run_dir',help='Directory of run files',type=str,default='run/bistable1k')
     parser.add_argument('--config',help='Config file inside config_dir',type=str,default='discrete_map.txt')
     parser.add_argument('--name_out',help='Name of the out file',type=str,default='out_exp')
 
@@ -89,15 +89,19 @@ def main():
     ]
 
     halfs_0, halfs_1 = exp_cluster(name_sh = "aemg.sh")
-    
-    for _, exp_id in enumerate(exp_ids):
-        name_file = f"run/{exp_id}.sh"
 
-        with open(name_file, "w") as file:
-            file.write(halfs_0)
-            id = f"\nid=\'{exp_id}\'\n"
-            file.write(id)
-            file.write(halfs_1)
+    with open("sample_run", 'w') as sample:
+    
+        for _, exp_id in enumerate(exp_ids):
+            name_file = f"{args.run_dir}/{exp_id}.sh"
+
+            with open(name_file, "w") as file:
+                file.write(halfs_0)
+                id = f"\nid=\'{exp_id}\'\n"
+                file.write(id)
+                file.write(halfs_1)
+
+            sample.writelines(f"sbatch {exp_id}.sh\n")
 
     
 
