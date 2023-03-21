@@ -21,7 +21,7 @@ cd /scratch/er691/AEMG/examples
 #  Run python script with input data
 # split_here #
 
-search_dir=config/exp_bistable_1k/$id/
+search_dir=config/exp_bistable1k/$id/
 
 yourfilenames=`ls $(pwd)/$search_dir*.txt`
 

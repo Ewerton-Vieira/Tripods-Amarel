@@ -23,7 +23,7 @@ cd /scratch/er691/AEMG/examples
 id='100_001_110_001_e2x11'
 
 
-search_dir=config/exp_bistable_1k/$id/
+search_dir=config/exp_bistable1k/$id/
 
 yourfilenames=`ls $(pwd)/$search_dir*.txt`
 
