@@ -1,9 +1,9 @@
-cd /scratch/er691/TRIPODS-AMAREL/AEMG/run
+cd /scratch/er691/Tripods-Amarel/AEMG/run
 
-dir_files=/scratch/er691/TRIPODS-AMAREL/AEMG/run
+dir=/scratch/er691/TRIPODS-AMAREL/AEMG/run
 # cd ~/TRIPODS-AMAREL/AEMG/run
 
-yourfilenames='ls /scratch/er691/TRIPODS-AMAREL/AEMG/run/*.sh'
+yourfilenames='ls $(pwd)/*.sh'
 
 for eachfile in $yourfilenames
 do
