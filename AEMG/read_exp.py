@@ -46,11 +46,10 @@ def main():
             count = 0
             total = 0
 
-            
             with open(file2read, "r") as reader:
-
                 line = reader.readline()
                 line_split = line.split(",")
+
                 while line != '':
                     key = line_split[0]
                     if key not in dict_write:
