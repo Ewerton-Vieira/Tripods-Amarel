@@ -31,8 +31,8 @@ import os
 
 def main():
 
-    # dir_source = "/scratch/er691/AEMG/examples/output"
-    dir_source = "/Users/ewerton/Dropbox/Codes/AEMG/examples/output"
+    dir_source = "/scratch/er691/AEMG/examples/output"
+    # dir_source = "/Users/ewerton/Dropbox/Codes/AEMG/examples/output"
 
     dict_write=dict()
 
