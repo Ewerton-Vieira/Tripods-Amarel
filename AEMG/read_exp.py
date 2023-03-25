@@ -50,7 +50,7 @@ def main():
                 line = reader.readline()
                 line_split = line.split(",")
 
-                while line != '':
+                while line != "":
                     key = line_split[0]
                     if key not in dict_write:
                         dict_write[key] = line_split[1]              
