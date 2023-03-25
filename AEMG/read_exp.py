@@ -42,8 +42,6 @@ def main():
             
         for b in os.listdir(dir_temp):
             file2read = os.path.join(dir_temp, b)
-            temp = ''
-            count = 0
             total = 0
 
             with open(file2read, "r") as reader:
