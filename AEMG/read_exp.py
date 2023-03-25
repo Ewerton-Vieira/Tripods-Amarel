@@ -29,34 +29,6 @@ def read_write_old(file_out, file2read):
             line = reader.readline()
             line_split = line.split(",")
 
-def read_write(file_out, file2read):
-
-        
-
-
-
-        
-
-        temp = str(line_split[0])
-
-        while True:
-            if line_split[0] != temp:
-                a = f",{count},{total},{total/count}\n"
-                file_out.write(a)
-                if line == "":
-                    break
-                file_out.write(line_split[0])
-                total = int(line_split[1])
-                count = 0
-            else:
-                total += int(line_split[1])
-
-            count += 1
-            temp = str(line_split[0])
-
-            line = reader.readline()
-            line_split = line.split(",")
-
 def main():
 
     dir_source = "/scratch/er691/AEMG/examples/output"
@@ -88,8 +60,6 @@ def main():
                     
                     line = reader.readline()
                     line_split = line.split(",")
-    
-
                     
     with open("out_exp.txt", "w") as file_out:
         for key, value in dict_write.items():
