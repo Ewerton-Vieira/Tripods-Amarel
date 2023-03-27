@@ -6,3 +6,6 @@ __pycache__
 *logs/
 *output
 .vscode
+out*
+*AEMG/run*
+*/AEMG/run
