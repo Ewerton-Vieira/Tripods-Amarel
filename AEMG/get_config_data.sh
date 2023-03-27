@@ -14,7 +14,7 @@ w="k"
 
 for i in 1 10 100
 do
-    python get_data.py --num_trajs "$i$k" --save_dir "data/$system$underline$control$i$w/" --system 'ndpendulum'
+    python get_data.py --num_trajs "$i$k" --save_dir "/data/$system$underline$control$i$w/" --system 'ndpendulum'
 done
 
 cd '/scratch/er691/Tripods-Amarel/AEMG'
