@@ -21,7 +21,11 @@ def main():
 
     args = parser.parse_args()
 
+    system_control_k_base = args.run_dir[4::]
+
     args.run_dir = os.path.join(os.getcwd(), args.run_dir)
+
+    
     
 
     if not os.path.exists(args.run_dir):
@@ -99,7 +103,7 @@ def main():
                 file.write(id)
 
                 # system_control_k=f"\nsystem_control_k={args.system}_{args.control}k\n"
-                system_control_k=f"\nsystem_control_k={args.run_dir[4::]}\n"
+                system_control_k=f"\nsystem_control_k={system_control_k_base}\n"
                 
                 file.write(system_control_k)
 
