@@ -1,10 +1,10 @@
-dir_path='/scratch/er691/AEMG/example'
-
-python $dir_path/generate_config.py --config ndpendulum.txt
+dir_path='/scratch/er691/AEMG/examples'
 
 system='ndpendulum'
 underline='_'
 control='lqr'
+
+python $dir_path/generate_config.py --config $system.txt
 
 
 k="000"
