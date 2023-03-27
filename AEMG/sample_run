@@ -23,13 +23,6 @@ sbatch 100_011_11e1x.sh
 sbatch 100_011_11e2x.sh
 sbatch 100_011_e1x11.sh
 sbatch 100_011_e2x11.sh
-sbatch 100_010_111.sh
-sbatch 100_010_11e1x.sh
-sbatch 100_010_11e2x.sh
-sbatch 100_010_e1x11.sh
-sbatch 100_010_e2x11.sh
-sbatch 100_010_0e1x1.sh
-sbatch 100_010_0e2x1.sh
 sbatch 100_001_010_111.sh
 sbatch 100_001_010_11e1x.sh
 sbatch 100_001_010_11e2x.sh

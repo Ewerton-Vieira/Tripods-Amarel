@@ -20,7 +20,7 @@ cd '/scratch/er691/Tripods-Amarel/AEMG'
 
 for i in 1 10 100
 do
-    python run.py --system $system --control $control --run_dir "/run/$system$underline$control$i$w"
+    python run.py --system $system --control $control --run_dir "run/$system$underline$control$i$w"
 done
 
 

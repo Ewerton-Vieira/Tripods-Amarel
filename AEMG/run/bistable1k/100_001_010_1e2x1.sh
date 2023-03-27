@@ -8,7 +8,7 @@
 #SBATCH --ntasks=1                    # Total number of tasks across all nodes
 #SBATCH --cpus-per-task=1             # Number of CPUs (cores) per task (>1 if multithread tasks)
 #SBATCH --mem=1000                    # Real memory (RAM) required (MB)
-#SBATCH --time=72:00:00               # Total run time limit (hh:mm:ss)
+#SBATCH --time=336:00:00               # Total run time limit (hh:mm:ss)
 #SBATCH --requeue                     # Return job to the queue if preempted
 #SBATCH --export=ALL                  # Export you current env to the job env
 
@@ -22,8 +22,12 @@ cd /scratch/er691/AEMG/examples
 
 id='100_001_010_1e2x1'
 
+system_control_k=discrete_map_bistablek
 
-search_dir=config/exp_bistable1k/$id/
+
+
+
+search_dir=config/$system_control_k/$id/
 
 yourfilenames=`ls $(pwd)/$search_dir*.txt`
 
