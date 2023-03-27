@@ -16,6 +16,8 @@ def main():
     parser.add_argument('--run_dir',help='Directory of run files',type=str,default='run/bistable1k')
     parser.add_argument('--config',help='Config file inside config_dir',type=str,default='discrete_map.txt')
     parser.add_argument('--name_out',help='Name of the out file',type=str,default='out_exp')
+    parser.add_argument('--system',help='Name of the system',type=str,default='discrete_map')
+    parser.add_argument('--control',help='Name of the control',type=str,default='bistable')
 
     args = parser.parse_args()
     
@@ -49,13 +51,6 @@ def main():
         '100_011_11e2x',
         '100_011_e1x11',
         '100_011_e2x11',
-        '100_010_111',
-        '100_010_11e1x',
-        '100_010_11e2x',
-        '100_010_e1x11',
-        '100_010_e2x11',
-        '100_010_0e1x1',
-        '100_010_0e2x1',
         '100_001_010_111',
         '100_001_010_11e1x',
         '100_001_010_11e2x',
@@ -97,8 +92,13 @@ def main():
 
             with open(name_file, "w") as file:
                 file.write(halfs_0)
+
                 id = f"\nid=\'{exp_id}\'\n"
                 file.write(id)
+
+                system_control_k=f"\nsystem_control_k={args.system}_{args.control}k\n"
+                file.write(system_control_k)
+
                 file.write(halfs_1)
 
             sample.writelines(f"sbatch {exp_id}.sh\n")

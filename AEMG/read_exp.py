@@ -39,6 +39,7 @@ def main():
 
     for a in ["","0","00"]:
         dir_temp = f"{dir_source}/bistable1{a}k"
+        dir_temp = f"{dir_source}/ndpendulum_lqr{a}k"
             
         for b in os.listdir(dir_temp):
             file2read = os.path.join(dir_temp, b)
