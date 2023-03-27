@@ -98,7 +98,9 @@ def main():
                 id = f"\nid=\'{exp_id}\'\n"
                 file.write(id)
 
-                system_control_k=f"\nsystem_control_k={args.system}_{args.control}k\n"
+                # system_control_k=f"\nsystem_control_k={args.system}_{args.control}k\n"
+                system_control_k=f"\nsystem_control_k={args.run_dir[4::]}\n"
+                
                 file.write(system_control_k)
 
                 file.write(halfs_1)
