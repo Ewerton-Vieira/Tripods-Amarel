@@ -20,6 +20,8 @@ def main():
     parser.add_argument('--control',help='Name of the control',type=str,default='bistable')
 
     args = parser.parse_args()
+
+    args.run_dir = os.path.join(os.getcwd(), args.run_dir)
     
 
     if not os.path.exists(args.run_dir):
