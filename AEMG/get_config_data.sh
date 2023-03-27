@@ -8,8 +8,8 @@ k="000"
 w="k"
 
 
-# cd $dir_path
-# python generate_config.py --config $system.txt
+cd $dir_path
+python generate_config.py --config $system.txt
 
 # for i in 1 10 100
 # do
