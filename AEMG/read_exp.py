@@ -33,6 +33,7 @@ def main():
 
     dir_source = "/scratch/er691/AEMG/examples/output"
     # dir_source = "/Users/ewerton/Dropbox/Codes/AEMG/examples/output"
+    name_out = "out_ndpendulum.txt"
 
     dict_write=dict()
 
@@ -59,7 +60,7 @@ def main():
                     line = reader.readline()
                     line_split = line.split(",")
                     
-    with open("out_exp.txt", "w") as file_out:
+    with open(name_out, "w") as file_out:
         for key, value in dict_write.items():
             file_out.write(key)
             total = len(value)
